@@ -52,7 +52,7 @@ export default function AddEmployee() {
   const handlePhoneNumberChange = (event) => setPhoneNumber(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const [message, setMessage] = React.useState("Nothing saved in the session");
+  const [message, setMessage] = React.useState("");
 
   async function sampleFunc(toInput) {
     const response = await fetch("/api/registeruser", {
@@ -69,8 +69,8 @@ export default function AddEmployee() {
       body: JSON.stringify(toInput), // body data type must match "Content-Type" header
     });
     let body = await response.json();
-    console.log(body.id);
-    setMessage(body.id ? "Data sucessfully updated" : "Data updation failed");
+    console.log(body);
+    setMessage(body.ok ? "Sign up sucessful" : "Sign up failed");
   }
 
   const handleSubmit = (variables) => {

@@ -46,7 +46,7 @@ export default function SignIn() {
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const [message, setMessage] = React.useState("Nothing saved in the session");
+  const [message, setMessage] = React.useState("");
 
   async function sampleFunc(toInput) {
     const response = await fetch("/api/validatelogin", {
@@ -63,8 +63,8 @@ export default function SignIn() {
       body: JSON.stringify(toInput), // body data type must match "Content-Type" header
     });
     let body = await response.json();
-    console.log(body.id);
-    setMessage(body.id ? "Data sucessfully updated" : "Data updation failed");
+    console.log(body);
+    setMessage(body.ok ? "Sign in sucessful" : "Sign in failed");
   }
 
   const handleSubmit = (variables) => {
