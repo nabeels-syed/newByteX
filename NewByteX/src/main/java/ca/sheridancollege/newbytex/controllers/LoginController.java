@@ -1,0 +1,69 @@
+package ca.sheridancollege.newbytex.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ca.sheridancollege.newbytex.beans.ConfirmationToken;
+import ca.sheridancollege.newbytex.beans.User;
+import ca.sheridancollege.newbytex.exceptions.UserNotFoundException;
+import ca.sheridancollege.newbytex.repositories.UserRepository;
+import ca.sheridancollege.newbytex.services.ConfirmationTokenService;
+import ca.sheridancollege.newbytex.services.EmailSenderService;
+
+@RestController
+@RequestMapping("/api")
+public class LoginController {
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	EmailSenderService emailSenderService;
+
+	@Autowired
+	ConfirmationTokenService confirmationTokenService;
+
+	@PostMapping("/validatelogin")
+	public Boolean validateUser(@RequestBody User userToValidate) {
+		User user;
+		try {
+			user = userRepository.findUserByEmail(userToValidate.getEmail())
+					.orElseThrow(() -> new UserNotFoundException("Email not found"));
+		} catch (Exception e) {
+			return false;
+		}
+
+		if (passwordEncoder.matches(userToValidate.getPassword(), user.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@PostMapping("/registeruser")
+	public Boolean registerUser(@RequestBody User user) {
+
+		try {
+			String password = user.getPassword();
+			user.setPassword(passwordEncoder.encode(password));
+			user = userRepository.save(user);
+
+			final ConfirmationToken confirmationToken = new ConfirmationToken(user);
+			confirmationTokenService.saveConfirmationToken(confirmationToken);
+			//emailSenderService.sendConfirmationEmail(user.getEmail(), emailSenderService.getSubject(),
+					//confirmationToken);
+
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+}

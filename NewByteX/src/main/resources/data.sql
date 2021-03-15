@@ -1,0 +1,1 @@
+insert into users (name, email, password, address, phonenumber, userrole, locked, enabled) values ('Luc Laffin', 'laffinl@sheridancollege.ca', '$2a$10$f9dYmZhsnm/zvJyVQNe.Le0lOEOxHSqGxEep7uMEBw6TWlr/ANzva', '123 Fake Street', '999-999-9999', 1, false, false);
