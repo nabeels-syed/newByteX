@@ -68,9 +68,9 @@ export default function AddEmployee() {
       referrerPolicy: "no-referrer", // no-referrer, *client
       body: JSON.stringify(toInput), // body data type must match "Content-Type" header
     });
-    let body = await response.json();
+    let body = await response;
     console.log(body);
-    setMessage(body.ok ? "Sign up sucessful" : "Sign up failed");
+    setMessage(body.ok ? "Sign up successful" : "Sign up failed");
   }
 
   const handleSubmit = (variables) => {
