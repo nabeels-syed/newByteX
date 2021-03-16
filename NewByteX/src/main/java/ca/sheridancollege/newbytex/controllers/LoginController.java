@@ -31,20 +31,16 @@ public class LoginController {
 	ConfirmationTokenService confirmationTokenService;
 
 	@PostMapping("/validatelogin")
-	public Boolean validateUser(@RequestBody User userToValidate) {
+	public Boolean validateLogin(@RequestBody User userToValidate) {
 		User user;
 		try {
 			user = userRepository.findUserByEmail(userToValidate.getEmail())
 					.orElseThrow(() -> new UserNotFoundException("Email not found"));
-		} catch (Exception e) {
+		} catch (UserNotFoundException userNotFoundException) {
 			return false;
 		}
 
-		if (passwordEncoder.matches(userToValidate.getPassword(), user.getPassword())) {
-			return true;
-		} else {
-			return false;
-		}
+		return passwordEncoder.matches(userToValidate.getPassword(), user.getPassword()); 
 	}
 
 	@PostMapping("/registeruser")

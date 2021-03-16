@@ -16,7 +16,7 @@ public class LoginControllerTest {
 		User user = new User();
 		user.setEmail("test@test.com");
 		user.setPassword("validPassword");
-		Boolean result = loginController.validateUser(user);
+		Boolean result = loginController.validateLogin(user);
 		assertTrue("Invalid login!", result);
 	}
 	
@@ -26,7 +26,7 @@ public class LoginControllerTest {
 		User user = new User();
 		user.setEmail("noone@sheridancollege.ca"); //email does not belong to any user
 		user.setPassword("validPassword");
-		Boolean result = loginController.validateUser(user);
+		Boolean result = loginController.validateLogin(user);
 		assertFalse("Invalid login!", result);
 	}
 	
@@ -36,7 +36,7 @@ public class LoginControllerTest {
 		User user = new User();
 		user.setEmail("rgdffdglefca"); //not a valid email
 		user.setPassword("validPassword");
-		Boolean result = loginController.validateUser(user);
+		Boolean result = loginController.validateLogin(user);
 		assertFalse("Invalid login!", result);
 	}
 	
@@ -46,7 +46,7 @@ public class LoginControllerTest {
 		User user = new User();
 		user.setEmail("test@test.com"); 
 		user.setPassword("passwordd"); //wrong password
-		Boolean result = loginController.validateUser(user);
+		Boolean result = loginController.validateLogin(user);
 		assertFalse("Invalid login!", result);
 	}
 	
