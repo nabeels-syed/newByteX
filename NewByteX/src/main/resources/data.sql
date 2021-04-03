@@ -1,1 +1,2 @@
-insert into users (name, email, password, address, phonenumber, userrole, locked, enabled) values ('Luc Laffin', 'laffinl@sheridancollege.ca', '$2a$10$f9dYmZhsnm/zvJyVQNe.Le0lOEOxHSqGxEep7uMEBw6TWlr/ANzva', '123 Fake Street', '999-999-9999', 1, false, false);
+insert into user (id, activation_code, password_reset_code, active, email, password, address, phonenumber, name, provider) values (1, null, null, true, 'testindmix@gmail.com', '$2a$08$eApn9x3qPiwp6cBVRYaDXed3J/usFEkcZbuc3FDa74bKOpUzHR.S.', '123', '999 999 9999', 'admin', 'LOCAL');
+alter table if exists user_role add constraint FKfpm8swft53ulq2hl11yplpr5 foreign key (user_id) references user;

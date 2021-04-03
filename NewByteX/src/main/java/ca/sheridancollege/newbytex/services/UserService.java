@@ -1,66 +1,36 @@
 package ca.sheridancollege.newbytex.services;
 
-import java.text.MessageFormat;
-import java.util.Optional;
+import java.util.List;
+import java.util.Map;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import ca.sheridancollege.newbytex.beans.ConfirmationToken;
 import ca.sheridancollege.newbytex.beans.User;
-import ca.sheridancollege.newbytex.exceptions.UserNotFoundException;
-import ca.sheridancollege.newbytex.repositories.UserRepository;
-import lombok.AllArgsConstructor;
 
-@Service
-@AllArgsConstructor
-public class UserService implements UserDetailsService {
+public interface UserService {
 
-	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
-	private final ConfirmationTokenService confirmationTokenService;
-	private final EmailSenderService emailSenderService;
+    User findUserById(Long userId);
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UserNotFoundException {
+    User findUserByEmail(String email);
 
-		final Optional<User> user = userRepository.findUserByEmail(email);
+    List<User> findAllUsers();
 
-		if (user.isPresent()) {
-			return user.get();
-		} else {
-			throw new UserNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email));
-		}
-	}
+    User findByPasswordResetCode(String code);
 
-	public void signUpUser(User user) {
+    Map<String, Object> login(String email);
 
-		final String encryptedPassword = passwordEncoder.encode(user.getPassword());
+    boolean registerUser(User user);
 
-		user.setPassword(encryptedPassword);
+    void registerOauthUser(String email, String username, String address, String phonenumber);
 
-		final User createdUser = userRepository.save(user);
+    void updateOauthUser(User user, String username);
 
-		final ConfirmationToken confirmationToken = new ConfirmationToken(user);
+    boolean activateUser(String code);
 
-		confirmationTokenService.saveConfirmationToken(confirmationToken);
+    boolean sendPasswordResetCode(String email);
 
-	}
+    void passwordReset(String email, String password);
 
-	public void confirmUser(ConfirmationToken confirmationToken) {
+    void userSave(String username, Map<String, String> form, User user);
 
-		final User user = confirmationToken.getUser();
-
-		user.setEnabled(true);
-
-		userRepository.save(user);
-
-		confirmationTokenService.deleteConfirmationToken(confirmationToken.getId());
-
-	}
-
+    void updateProfile(String email, String username);
 
 }

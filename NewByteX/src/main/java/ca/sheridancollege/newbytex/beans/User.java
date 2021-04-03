@@ -1,11 +1,7 @@
 package ca.sheridancollege.newbytex.beans;
 
-import java.security.AuthProvider;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
-import javax.management.relation.Role;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -22,39 +18,40 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.sun.istack.NotNull;
 
 import lombok.Data;
 
+
 @Data
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotNull
 	@NotBlank(message = "Name is mandatory")
 	private String name;
+
 	@NotNull
 	@Column(unique = true)
 	@NotBlank(message = "Email is mandatory")
 	@Email
 	private String email;
+
 	@NotNull
 	@Size(min = 8)
 	private String password;
+
 	private String address;
 	private String phonenumber;
 	private String activationCode;
 	private String passwordResetCode;
 	private boolean active;
-	
+
 	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;
 
@@ -62,5 +59,5 @@ public class User {
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
 	private Set<Role> roles;
-	
+
 }

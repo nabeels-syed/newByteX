@@ -2,31 +2,52 @@ package ca.sheridancollege.newbytex.configuration;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
-public class EmailConfiguration
-{
-    @Bean
-    public JavaMailSender getJavaMailSender() 
-    {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(25);
-          
-        mailSender.setUsername("luc.laffin@gmail.com");
-        mailSender.setPassword("Z1/x2/c3/");
-          
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-          
-        return mailSender;
-    }
+public class EmailConfiguration {
+
+	@Value("${spring.mail.host}")
+	private String host;
+
+	@Value("${spring.mail.username}")
+	private String username;
+
+	@Value("${spring.mail.password}")
+	private String password;
+
+	@Value("${spring.mail.port}")
+	private int port;
+
+	@Value("${spring.mail.protocol}")
+	private String protocol;
+
+	@Value("${spring.mail.properties.mail.smtp.auth}")
+	private String auth;
+
+	@Value("${spring.mail.properties.mail.smtp.starttls.enable}")
+	private String enable;
+
+	@Value("${mail.debug}")
+	private String debug;
+
+	@Bean
+	public JavaMailSender getMailSender() {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost(host);
+		mailSender.setPort(port);
+		mailSender.setUsername(username);
+		mailSender.setPassword(password);
+
+		Properties mailProperties = mailSender.getJavaMailProperties();
+		mailProperties.setProperty("mail.transport.protocol", protocol);
+		mailProperties.setProperty("mail.debug", debug);
+		mailProperties.setProperty("mail.smtp.auth", auth);
+		mailProperties.setProperty("mail.smtp.starttls.enable", enable);
+		return mailSender;
+	}
 }
