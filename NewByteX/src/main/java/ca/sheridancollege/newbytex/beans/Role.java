@@ -1,7 +1,5 @@
 package ca.sheridancollege.newbytex.beans;
 
-public enum UserRole {
-	
-	ADMIN, USER
-
+public enum Role {
+	USER, ADMIN
 }

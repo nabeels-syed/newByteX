@@ -95,7 +95,7 @@ public class UserController {
 		if (confirmationToken != null) {
 			if (token.equals(confirmationToken.getConfirmationToken())) {
 				User user = confirmationToken.getUser();
-				user.setEnabled(true);
+				//user.setEnabled(true);
 				userRepository.save(user);
 				return true;
 			}

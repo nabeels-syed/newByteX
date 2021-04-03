@@ -1,13 +1,23 @@
 package ca.sheridancollege.newbytex.beans;
 
+import java.security.AuthProvider;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
+import javax.management.relation.Role;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -18,17 +28,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.sun.istack.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "Users")
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class User implements UserDetails {
+@Entity
+@Table(name="user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,45 +51,16 @@ public class User implements UserDetails {
 	private String password;
 	private String address;
 	private String phonenumber;
+	private String activationCode;
+	private String passwordResetCode;
+	private boolean active;
+	
+	@Enumerated(EnumType.STRING)
+	private AuthProvider provider;
 
-	@Builder.Default
-	private UserRole userrole = UserRole.USER;
-
-	@Builder.Default
-	private Boolean locked = false;
-
-	@Builder.Default
-	private Boolean enabled = false;
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userrole.name());
-		return Collections.singletonList(simpleGrantedAuthority);
-	}
-
-	@Override
-	public String getUsername() {
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return !locked;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
+	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+	@Enumerated(EnumType.STRING)
+	private Set<Role> roles;
+	
 }

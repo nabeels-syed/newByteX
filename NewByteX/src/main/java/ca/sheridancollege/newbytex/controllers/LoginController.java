@@ -47,7 +47,8 @@ public class LoginController {
 	public Boolean registerUser(@RequestBody User user) {
 
 		try {
-			String password = user.getPassword();
+			String password = user.getPassword().length()>=8 ? user.getPassword() : null;
+			if(password == null) return false;
 			user.setPassword(passwordEncoder.encode(password));
 			user = userRepository.save(user);
 
