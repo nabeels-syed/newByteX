@@ -24,6 +24,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Value("${hostname}")
     private String hostname;
+    //private String hostnameSplit[] = hostname.split(":");
+    //private String noPortHost = hostnameSplit[0];
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
@@ -96,7 +98,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         List<String> emailMessages = new ArrayList<>();
         emailMessages.add("Welcome to NDMix!");
         emailMessages.add("Please click the following link to activate your account: ");
-        sendMessage(user, emailMessages, subject, user.getActivationCode(), "api/registration/activate");
+        sendMessage(user, emailMessages, subject, user.getActivationCode(), "activate");
         return true;
     }
 
@@ -134,14 +136,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         List<String> emailMessages = new ArrayList<>();
         emailMessages.add("You have requested to change your password.");
         emailMessages.add("To reset your password, click the following link: ");
-        sendMessage(user, emailMessages, subject, user.getPasswordResetCode(), "reset");
+        sendMessage(user, emailMessages, subject, user.getPasswordResetCode(), "forgot");
         return true;
     }
 
     @SuppressWarnings("deprecation")
 	public void sendMessage(User user, List<String> emailMessages, String subject, String code, String urlPart) {
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String message = String.format("Hello, %s! \n" + "%s \n" + "%s http://%s/%s/%s",
+            String message = String.format("Hello, %s! \n" + "%s \n" + "%s http://%s/%s/?token=%s",
                     user.getName(),
                     emailMessages.get(0),
                     emailMessages.get(1),
