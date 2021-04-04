@@ -17,11 +17,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 import com.sun.istack.NotNull;
-
 import lombok.Data;
-
 
 @Data
 @Entity
