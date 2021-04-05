@@ -105,7 +105,7 @@ export default function ResetPassword() {
 
     if (password == confirmPassword && password > 0 && confirmPassword > 0) {
       alert("Passwords match!");
-      const toInput = { password: password, token: passwordResetCode };
+      const toInput = { password: password, passwordResetCode: tokenURL };
       sampleFunc(toInput);
       setPassword("");
       setConfirmPassword("");
