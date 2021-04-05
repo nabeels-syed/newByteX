@@ -5,3 +5,5 @@ export { default as SignUp } from "./Authentication/signup";
 export { default as SignIn } from "./Authentication/signin";
 export { default as Forgot } from "./Authentication/forgot";
 export { default as ResetPassword } from "./Authentication/reset";
+export { default as About } from "./about";
+export { default as Contact } from "./contact";

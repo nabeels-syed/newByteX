@@ -29,6 +29,8 @@ function Navigation(props) {
         <li><a href='/' className='active'>Home</a></li>
         <li><a href='/sign-up'>Sign Up</a></li>
         <li><a href='/sign-in'>Sign In</a></li>
+        <li><a href='/about'>About</a></li>
+        <li><a href='/contact'>Contact</a></li>
     </ul>
 </nav>
   )
