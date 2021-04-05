@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEmployee() {
+export default function SignUp() {
   const classes = useStyles();
   const [firstLoad, setLoad] = React.useState(true);
 
@@ -55,7 +55,7 @@ export default function AddEmployee() {
   const [message, setMessage] = React.useState("");
 
   async function sampleFunc(toInput) {
-    const response = await fetch("/api/registeruser", {
+    const response = await fetch("/api/registration", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -97,6 +97,10 @@ export default function AddEmployee() {
     );
   }
 
+  function isValidEmailAddress(email) {
+    return !! email.match(/.+@.+/);
+}
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -119,6 +123,7 @@ export default function AddEmployee() {
                 label="Full Name"
                 name="name"
                 autoComplete="name"
+                helperText="cannot be blank"
                 onChange={handleNameChange}
               />
             </Grid>
@@ -126,7 +131,6 @@ export default function AddEmployee() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="address"
                 value={address}
@@ -154,7 +158,6 @@ export default function AddEmployee() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="phonenumber"
                 value={phonenumber}
@@ -176,6 +179,7 @@ export default function AddEmployee() {
                 type="password"
                 name="password"
                 autoComplete="password"
+                helperText="minimum 8 characters"
                 onChange={handlePasswordChange}
               />
             </Grid>

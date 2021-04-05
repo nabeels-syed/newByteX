@@ -49,7 +49,7 @@ export default function SignIn() {
   const [message, setMessage] = React.useState("");
 
   async function sampleFunc(toInput) {
-    const response = await fetch("/api/validatelogin", {
+    const response = await fetch("/api/auth/login", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
