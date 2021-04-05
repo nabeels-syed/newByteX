@@ -32,12 +32,12 @@ public class RegistrationController {
 	@PostMapping
 	public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationRequestDTO user, BindingResult bindingResult) {
 		
-		if (ControllerUtils.isPasswordDifferent(user.getPassword(), user.getPassword2())) {
-			throw new PasswordException("Passwords do not match");
-		}
-		if (bindingResult.hasErrors()) {
-			throw new InputFieldException(bindingResult);
-		}
+//		if (ControllerUtils.isPasswordDifferent(user.getPassword(), user.getPassword2())) {
+//			throw new PasswordException("Passwords do not match");
+//		}
+//		if (bindingResult.hasErrors()) {
+//			throw new InputFieldException(bindingResult);
+//		}
 		if (!userMapper.registerUser(user)) {
 			throw new EmailException("Email is already registered");
 		}

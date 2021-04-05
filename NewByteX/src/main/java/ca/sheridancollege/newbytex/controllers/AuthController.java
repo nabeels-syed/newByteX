@@ -51,26 +51,15 @@ public class AuthController {
 		
 		return ResponseEntity.ok("Password reset code has been sent to your email");
 	}
-	
-	@GetMapping("/reset/{token}")
-	public ResponseEntity<UserResponseDTO> getPasswordResetToken(@PathVariable String token) {
-		UserResponseDTO user = userMapper.findByPasswordResetCode(token);
-		if(user==null) {
-			throw new ApiRequestException("Password reset token is invalid", HttpStatus.BAD_REQUEST);
-		}
-		return ResponseEntity.ok(user);
-	}
-	
+		
 	@PostMapping("/reset")
-	public ResponseEntity<String> passwordReset(@RequestBody PasswordResetRequestDTO passwordReset) {
-		if (ControllerUtils.isPasswordConfirmEmpty(passwordReset.getPassword2())) {
-            throw new PasswordConfirmationException("Password confirmation cannot be empty");
+	public boolean passwordReset(@RequestBody PasswordResetRequestDTO passwordReset) {
+		UserResponseDTO user = userMapper.findByPasswordResetCode(passwordReset.getPasswordResetCode());
+		try {
+			userMapper.passwordReset(user.getEmail(), passwordReset.getPassword());
+        return true;
+		} catch(AuthenticationException e) {
+        	return false;
         }
-        if (ControllerUtils.isPasswordDifferent(passwordReset.getPassword(), passwordReset.getPassword2())) {
-            throw new PasswordException("Passwords do not match");
-        }
-        userMapper.passwordReset(passwordReset.getEmail(), passwordReset.getPassword());
-        return ResponseEntity.ok("Password changed");
 	}
-
 }

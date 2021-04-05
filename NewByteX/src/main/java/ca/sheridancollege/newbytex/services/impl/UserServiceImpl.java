@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         List<String> emailMessages = new ArrayList<>();
         emailMessages.add("You have requested to change your password.");
         emailMessages.add("To reset your password, click the following link: ");
-        sendMessage(user, emailMessages, subject, user.getPasswordResetCode(), "forgot");
+        sendMessage(user, emailMessages, subject, user.getPasswordResetCode(), "reset");
         return true;
     }
 
