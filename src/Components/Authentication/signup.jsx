@@ -97,10 +97,6 @@ export default function SignUp() {
     );
   }
 
-  function isValidEmailAddress(email) {
-    return !! email.match(/.+@.+/);
-}
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

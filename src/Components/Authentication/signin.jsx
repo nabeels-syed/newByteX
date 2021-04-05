@@ -97,7 +97,7 @@ export default function SignIn() {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign In
-        </Typography>
+          </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -139,7 +139,7 @@ export default function SignIn() {
             onClick={handleSubmit}
           >
             Sign In
-          </Button>
+            </Button>
           <Grid container>
             <Grid item xs>
               <NavLink to="/forgot">Forgot Password?</NavLink>
