@@ -57,37 +57,18 @@ export default function ResetPassword() {
   var tokenURL = pathArray[1];
   console.log("Token from URL:", tokenURL);
 
-  async function sampleFunc(toInput) {
-    // const response = await fetch(`/api/auth/reset/${token}`, {
-    //     method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //     mode: "cors", // no-cors, *cors, same-origin
-    //     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //     credentials: "same-origin", // include, *same-origin, omit
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         // 'Content-Type': 'application/x-www-form-urlencoded',
-    //     },
-    //     redirect: "follow", // manual, *follow, error
-    //     referrerPolicy: "no-referrer", // no-referrer, *client
-    //     body: JSON.stringify(toInput), // body data type must match "Content-Type" header
-    // });
-
-    // let body = await response;
-    // console.log(body);
-    // setMessage(body.ok ? "Reset sent" : "Reset failed");
-
+  async function apiFunc(toInput) {
     const response = await fetch("/api/auth/reset", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *client
-      body: JSON.stringify(toInput), // body data type must match "Content-Type" header
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(toInput),
     });
 
     let body = await response;
@@ -96,23 +77,15 @@ export default function ResetPassword() {
   }
 
   const handleSubmit = (variables) => {
-    // const toInput = { password: password, token: passwordResetCode };
-    // sampleFunc(toInput);
-    // setPassword("");
-    // setConfirmPassword("");
-    // setToken(tokenURL);
-    // console.log(tokenURL);
-
-    if (password == confirmPassword && password > 0 && confirmPassword > 0) {
+    if (password == confirmPassword) {
       alert("Passwords match!");
       const toInput = { password: password, passwordResetCode: tokenURL };
-      sampleFunc(toInput);
+      apiFunc(toInput);
       setPassword("");
       setConfirmPassword("");
       setToken(tokenURL);
       console.log(tokenURL);
     } else {
-      // make API call
       alert("Not matching!");
     }
   };

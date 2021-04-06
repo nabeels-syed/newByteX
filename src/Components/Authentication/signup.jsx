@@ -54,19 +54,18 @@ export default function SignUp() {
 
   const [message, setMessage] = React.useState("");
 
-  async function sampleFunc(toInput) {
+  async function apiFunc(toInput) {
     const response = await fetch("/api/registration", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *client
-      body: JSON.stringify(toInput), // body data type must match "Content-Type" header
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(toInput),
     });
     let body = await response;
     console.log(body);
@@ -75,7 +74,7 @@ export default function SignUp() {
 
   const handleSubmit = (variables) => {
     const toInput = { name, address, email, phonenumber, password };
-    sampleFunc(toInput);
+    apiFunc(toInput);
     setName("");
     setAddress("");
     setEmail("");
