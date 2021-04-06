@@ -143,11 +143,21 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @SuppressWarnings("deprecation")
 	public void sendMessage(User user, List<String> emailMessages, String subject, String code, String urlPart) {
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String message = String.format("Hello, %s! \n" + "%s \n" + "%s http://%s/%s/?token=%s",
+        	String hostname1;
+        	if(urlPart.equals("activate")) {
+        		hostname1 = "20.51.188.50:8080";
+        		urlPart = "api/registration/activate"; 
+        	} 
+        	else {
+        		code = "?token=" + code;
+        		hostname1 = hostname;
+        	}
+        	
+            String message = String.format("Hello, %s! \n" + "%s \n" + "%s http://%s/%s/%s",
                     user.getName(),
                     emailMessages.get(0),
                     emailMessages.get(1),
-                    hostname,
+                    hostname1,
                     urlPart,
                     code
             );
