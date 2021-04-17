@@ -1,7 +1,8 @@
 export { default as Navigation } from "./navbar";
-export { default as Footer } from "./footer";
+// export { default as Footer } from "./footer";
 export { default as Home } from "./home";
 export { default as SignUp } from "./Authentication/signup";
+export { default as Activated } from "./Authentication/activated";
 export { default as SignIn } from "./Authentication/signin";
 export { default as Forgot } from "./Authentication/forgot";
 export { default as ResetPassword } from "./Authentication/reset";

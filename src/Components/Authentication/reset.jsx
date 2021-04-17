@@ -104,15 +104,11 @@ export default function ResetPassword() {
     );
   }
 
-  function canBeSubmitted() {
-    const { password, confirmPassword } = this.state;
-    return password.length > 0 && password.length > 0;
-  }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <br></br><br></br><br></br>
         <Avatar className={classes.avatar}>
           <GroupIcon />
         </Avatar>

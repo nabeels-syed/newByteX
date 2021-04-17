@@ -4,7 +4,8 @@ body{
   margin:0px;
   padding: 0px;
   
-  background-color: #ffffff;
+  background-image: url("./Assests/Images/Background.jpeg");
+  background-color: #cccccc;
   font-family: 'Montserrat', sans-serif;
 }
 *{
@@ -97,7 +98,7 @@ transform: translate(-22%,-50%);
   color: #00b7ff;
 }
 .name .details{
-  color: #969696;
+  color: #292929;
 }
 .name h1{
 font-family:'Montserrat';

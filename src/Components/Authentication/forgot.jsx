@@ -88,6 +88,7 @@ export default function Forgot() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <br></br><br></br><br></br>
         <Avatar className={classes.avatar}>
           <GroupIcon />
         </Avatar>
