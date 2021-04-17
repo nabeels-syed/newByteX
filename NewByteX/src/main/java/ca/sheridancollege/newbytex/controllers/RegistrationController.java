@@ -39,7 +39,7 @@ public class RegistrationController {
 		return ResponseEntity.ok("User registered");
 	}
 	
-	@GetMapping("/activate/{token}")
+	@PostMapping("/activate/{token}")
 	public Boolean activateUser(@PathVariable String token) {
 		if (!userMapper.activateUser(token)) {
 			throw new ApiRequestException("Activation token not found", HttpStatus.NOT_FOUND);

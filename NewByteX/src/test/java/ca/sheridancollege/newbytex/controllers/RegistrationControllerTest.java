@@ -30,7 +30,7 @@ class RegistrationControllerTest extends AbstractTest {
 				.andReturn();
 		
 		String content = mvcResult.getResponse().getContentAsString();
-		assertEquals(content, "User registered");
+		assertEquals(content, "true");
 	}
 	
 	@Test(expected = EmailException.class)
