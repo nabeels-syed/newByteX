@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	public void sendMessage(User user, List<String> emailMessages, String subject, String code, String urlPart) {
         if (!StringUtils.isEmpty(user.getEmail())) {
  
-        	String hostname = ("activate").equals(urlPart) ? hostname_spring : hostname_react;
+        	//String hostname = ("activate").equals(urlPart) ? hostname_spring : hostname_react;
  
         	code = "?token=" + code;
         	
@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                     user.getName(),
                     emailMessages.get(0),
                     emailMessages.get(1),
-                    hostname,
+                    hostname_react,
                     urlPart,
                     code
             );
