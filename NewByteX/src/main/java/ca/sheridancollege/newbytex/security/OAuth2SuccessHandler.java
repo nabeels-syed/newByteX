@@ -22,7 +22,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final UserService userService;
     private final JwtProvider jwtProvider;
 
-    @Value("${hostname}")
+    @Value("${hostname_spring}")
     private String hostname;
 
     @Override

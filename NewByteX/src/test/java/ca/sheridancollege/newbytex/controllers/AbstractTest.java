@@ -23,6 +23,7 @@ import ca.sheridancollege.newbytex.NewByteXApplication;
 @WebAppConfiguration
 public abstract class AbstractTest {
 
+	@Autowired
 	protected MockMvc mvc;
 
 	@Autowired

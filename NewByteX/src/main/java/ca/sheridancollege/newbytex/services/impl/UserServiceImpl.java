@@ -22,10 +22,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService, UserService {
 
-    @Value("${hostname}")
-    private String hostname;
-    //private String hostnameSplit[] = hostname.split(":");
-    //private String noPortHost = hostnameSplit[0];
+    @Value("${hostname_spring}")
+    private String hostname_spring;
+    
+    @Value("${hostname_react}")
+    private String hostname_react;
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
@@ -143,21 +144,16 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @SuppressWarnings("deprecation")
 	public void sendMessage(User user, List<String> emailMessages, String subject, String code, String urlPart) {
         if (!StringUtils.isEmpty(user.getEmail())) {
-        	String hostname1;
-        	if(urlPart.equals("activate")) {
-        		hostname1 = "20.51.188.50:8080";
-        		urlPart = "api/registration/activate"; 
-        	} 
-        	else {
-        		code = "?token=" + code;
-        		hostname1 = hostname;
-        	}
+ 
+        	String hostname = ("activate").equals(urlPart) ? hostname_spring : hostname_react;
+ 
+        	code = "?token=" + code;
         	
             String message = String.format("Hello, %s! \n" + "%s \n" + "%s http://%s/%s/%s",
                     user.getName(),
                     emailMessages.get(0),
                     emailMessages.get(1),
-                    hostname1,
+                    hostname,
                     urlPart,
                     code
             );
