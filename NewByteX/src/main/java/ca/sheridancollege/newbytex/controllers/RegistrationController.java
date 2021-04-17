@@ -40,11 +40,11 @@ public class RegistrationController {
 	}
 	
 	@GetMapping("/activate/{token}")
-	public ResponseEntity<String> activateUser(@PathVariable String token) {
+	public Boolean activateUser(@PathVariable String token) {
 		if (!userMapper.activateUser(token)) {
 			throw new ApiRequestException("Activation token not found", HttpStatus.NOT_FOUND);
 		} else {
-			return ResponseEntity.ok("User activated");
+			return true;
 		}
 	}
 }
