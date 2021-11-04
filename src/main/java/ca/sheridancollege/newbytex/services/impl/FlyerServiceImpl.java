@@ -39,7 +39,7 @@ public class FlyerServiceImpl implements FlyerService {
 		List<GridFSFile> flyerList = new ArrayList<GridFSFile>();
 		List<Flyer> flyers = new ArrayList<Flyer>();
 		
-		this.gridFsTemplate.find(new Query()).into(flyerList);
+		this.gridFsTemplate.find(new Query(Criteria.where("metadata.fileType").is("Flyer"))).into(flyerList);
 		
 		for (GridFSFile gridTrack : flyerList) {
 			Flyer flyer = new Flyer();
@@ -74,6 +74,7 @@ public class FlyerServiceImpl implements FlyerService {
 		metaData.put("type", "flyer");
 		metaData.put("eventName", eventName);
 		metaData.put("eventDate", eventDate);
+		metaData.put("fileType", "Flyer");
 		ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(),
 				metaData);
 		return id.toString();

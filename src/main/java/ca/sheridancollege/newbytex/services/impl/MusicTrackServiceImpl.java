@@ -51,7 +51,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 		List<GridFSFile> trackList = new ArrayList<GridFSFile>();
 		List<MusicTrack> tracks = new ArrayList<MusicTrack>();
 		
-		this.gridFsTemplate.find(new Query()).into(trackList);
+		this.gridFsTemplate.find(new Query(Criteria.where("metadata.fileType").is("MusicTrack"))).into(trackList);
 		
 		for (GridFSFile gridTrack : trackList) {
 			MusicTrack track = new MusicTrack();
@@ -129,6 +129,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 		metaData.put("type", "track");
 		metaData.put("title", title);
 		metaData.put("artist", artist);
+		metaData.put("fileType", "MusicTrack");
 		metaData.put("releaseDate", releaseDate);
 		ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData);
 		return id.toString();
