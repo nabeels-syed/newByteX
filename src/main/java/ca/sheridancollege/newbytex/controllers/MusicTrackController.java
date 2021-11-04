@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -17,19 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import ca.sheridancollege.newbytex.beans.MusicTrack;
 import ca.sheridancollege.newbytex.dto.MusicTrackRequestDTO;
 import ca.sheridancollege.newbytex.dto.MusicTrackResponseDTO;
 import ca.sheridancollege.newbytex.mapper.MusicTrackMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -68,15 +58,6 @@ public class MusicTrackController {
 			BindingResult bindingResult) {
 		return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
 	}
-
-	
-//	@PostMapping("/streamTrack")
-//	public void streamTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, HttpServletResponse response)
-//			throws Exception {
-//		FileCopyUtils.copy(trackMapper.convertToEntity(trackMapper.findTrack(trackRequest)).getStream(),
-//				response.getOutputStream());
-//	}
-	 
 	
 	@GetMapping("/streamTrack/{id}")
 	public void streamTrack(@Valid @PathVariable String id, HttpServletResponse response)
