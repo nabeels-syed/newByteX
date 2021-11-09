@@ -1,6 +1,7 @@
 package ca.sheridancollege.newbytex.services.impl;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,6 @@ import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
 
 import ca.sheridancollege.newbytex.beans.Flyer;
-import ca.sheridancollege.newbytex.beans.MusicTrack;
-import ca.sheridancollege.newbytex.repositories.FlyerRepository;
 import ca.sheridancollege.newbytex.services.FlyerService;
 import lombok.RequiredArgsConstructor;
 
@@ -39,41 +38,39 @@ public class FlyerServiceImpl implements FlyerService {
 		List<GridFSFile> flyerList = new ArrayList<GridFSFile>();
 		List<Flyer> flyers = new ArrayList<Flyer>();
 		
-		this.gridFsTemplate.find(new Query(Criteria.where("metadata.fileType").is("Flyer"))).into(flyerList);
+		this.gridFsTemplate.find(new Query(Criteria.where("metadata.type").is("flyer")))
+			.sort(new BasicDBObject("metadata.eventDate", 1)).into(flyerList);
 		
-		for (GridFSFile gridTrack : flyerList) {
+		for (GridFSFile flyerFile : flyerList) {
 			Flyer flyer = new Flyer();
 
-			flyer.setId(((BsonObjectId) gridTrack.getId()).getValue().toString());
-			flyer.setEventName(gridTrack.getMetadata().get("eventName").toString());
-			flyer.setEventDate(gridTrack.getMetadata().get("eventDate").toString());
+			flyer.setId(((BsonObjectId) flyerFile.getId()).getValue().toString());
+			flyer.setEventName(flyerFile.getMetadata().get("eventName").toString());
+			flyer.setEventDate(LocalDate.parse(flyerFile.getMetadata().get("eventDate").toString()));
 
 			try {
-				flyer.setStream(operations.getResource(gridTrack).getInputStream());
+				flyer.setStream(operations.getResource(flyerFile).getInputStream());
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 			flyers.add(flyer);
 		}
-		
 		return flyers;
 	}
 
 	@Override
 	public Boolean deleteFlyer(String id) {
-
 		this.gridFsTemplate.delete(new Query(Criteria.where("_id").is(id)));
 		return true;
-
 	}
 
 	@Override
-	public String addFlyer(String eventName, String eventDate, MultipartFile file) throws IOException {
-
+	public String addFlyer(String eventName, LocalDate eventDate, MultipartFile file) throws IOException {
+		
 		DBObject metaData = new BasicDBObject();
 		metaData.put("type", "flyer");
 		metaData.put("eventName", eventName);
-		metaData.put("eventDate", eventDate);
+		metaData.put("eventDate", eventDate.toString());
 		metaData.put("fileType", "Flyer");
 		ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(),
 				metaData);
@@ -86,7 +83,7 @@ public class FlyerServiceImpl implements FlyerService {
 		GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
 		Flyer flyer = new Flyer();
 		flyer.setEventName(file.getMetadata().get("eventName").toString());
-		flyer.setEventDate(file.getMetadata().get("eventDate").toString());
+		flyer.setEventDate(LocalDate.parse(file.getMetadata().get("eventDate").toString()));
 		flyer.setStream(operations.getResource(file).getInputStream());
 		return flyer;
 	}

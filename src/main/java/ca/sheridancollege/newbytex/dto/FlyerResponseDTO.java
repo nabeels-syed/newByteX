@@ -1,6 +1,7 @@
 package ca.sheridancollege.newbytex.dto;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -11,7 +12,7 @@ public class FlyerResponseDTO {
 
 	private String eventName;
 
-	private String eventDate;
+	private LocalDate eventDate;
 
 	private String filetype;
 	

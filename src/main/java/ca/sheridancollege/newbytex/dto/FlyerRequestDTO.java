@@ -1,5 +1,7 @@
 package ca.sheridancollege.newbytex.dto;
 
+import java.time.LocalDate;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -11,7 +13,7 @@ public class FlyerRequestDTO {
 
 	private String eventName;
 
-	private String eventDate;
+	private LocalDate eventDate;
 
 	private String filetype;
 	
