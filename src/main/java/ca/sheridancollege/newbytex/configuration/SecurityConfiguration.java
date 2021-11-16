@@ -27,9 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable().authorizeRequests().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/api/**", "/h2-console/**")
-				.permitAll().anyRequest().authenticated();
-				//.and().oauth2Login().authorizationEndpoint()
-				//.baseUri("/api/login/google").and().successHandler(oauthSuccessHandler).and().apply(jwtConfigurer);
+				.permitAll().anyRequest().authenticated()
+				.and()
+                .logout().logoutUrl("/logout").invalidateHttpSession(true);
 		http.headers().frameOptions().disable();
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,16 @@ public class AuthController {
 			throw new ApiRequestException("Incorrect email or password", HttpStatus.FORBIDDEN);
 		}
 	}
+	
+	@GetMapping("/logout")
+	public ResponseEntity<String> logout(Authentication authentication) {
+
+		authentication.setAuthenticated(false);
+		
+		return ResponseEntity.ok("Logged Out");
+
+	}
+
 
 	@PostMapping("/forgot")
 	public ResponseEntity<String> forgotPassword(@Valid @RequestBody PasswordResetRequestDTO passwordReset) {
