@@ -26,15 +26,15 @@ const AdminTrackList = (props) => {
     let body = await response;
     console.log(body);
   }
-    
+
   const handleDelete = (id) => {
     const toInput = { id };
     apiFunc(toInput);
   };
 
   const setTrackSource = (id) => {
-    return `http://localhost:8080/api/track/streamTrack/${id}`
-  }
+    return `http://localhost:8080/api/track/streamTrack/${id}`;
+  };
 
   if (!tracks || tracks.length === 0) return <p>No tracks uploaded</p>;
   return (
@@ -49,7 +49,10 @@ const AdminTrackList = (props) => {
               <span className="track-artist"> {track.artist} --</span>
               <span>
                 <audio type="audio/mpeg" controls volume="true">
-                  <source src={setTrackSource(track.id)} type="audio/mpeg"></source>
+                  <source
+                    src={setTrackSource(track.id)}
+                    type="audio/mpeg"
+                  ></source>
                   Your browser does not support the audio element.
                 </audio>
               </span>

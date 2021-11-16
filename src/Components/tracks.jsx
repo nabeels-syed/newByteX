@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   trackSection: {
-    width: "90%"
-  }
+    width: "90%",
+  },
 }));
 
 function Tracks() {
@@ -83,8 +83,11 @@ function Tracks() {
       </div>
       <div className="Tracks">
         <div className="track-container">
-        <h2 >InDMix Tracks</h2>
-          <TrackListLoading isLoading={appState.loading} tracks={appState.tracks} />
+          <h2>InDMix Tracks</h2>
+          <TrackListLoading
+            isLoading={appState.loading}
+            tracks={appState.tracks}
+          />
         </div>
         <Box mt={8} class="copyrightFooter">
           <Copyright />

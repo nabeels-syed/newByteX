@@ -8,56 +8,58 @@ import image3 from "../Assests/Images/3.jpeg";
 const images = [image1, image2, image3];
 
 const zoomOutProperties = {
-    duration: 5000,
-    transitionDuration: 350,
-    infinite: true,
-    indicators: true,
-    scale: 0.4,
-    arrows: false,
-  };
-
+  duration: 5000,
+  transitionDuration: 350,
+  infinite: true,
+  indicators: true,
+  scale: 0.4,
+  arrows: false,
+};
 
 const useStyles = makeStyles((theme) => ({
   rootDiv: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
   },
   trackBox: {
-    width: '100%',
+    width: "100%",
     height: 150,
   },
-  indivTrack: {
-
-  },
+  indivTrack: {},
 }));
 
 const EventBanner = () => {
-    return (
-      <div className="slide-container">
-        <Zoom {...zoomOutProperties}>
-          {images.map((each, index) => (
-            <img key={index} style={{ width: "100%", height: "30%" }} src={each} />
-          ))}
-        </Zoom>
-      </div>
-    );
-  };
+  return (
+    <div className="slide-container">
+      <Zoom {...zoomOutProperties}>
+        {images.map((each, index) => (
+          <img
+            key={index}
+            style={{ width: "100%", height: "30%" }}
+            src={each}
+          />
+        ))}
+      </Zoom>
+    </div>
+  );
+};
 
 const UserEventList = (props) => {
   const classes = useStyles();
   const { events } = props;
 
   const setEventSource = (id) => {
-    return `http://localhost:8080/api/flyer/streamFlyer/${id}`
-  }
+    return `http://localhost:8080/api/flyer/streamFlyer/${id}`;
+  };
 
-  if (!events || events.length === 0) return <p>No events at the moment, check back later!</p>;
+  if (!events || events.length === 0)
+    return <p>No events at the moment, check back later!</p>;
   return (
     <Container className={classes.rootDiv}>
-      <h2 >InDMix Events</h2>
+      <h2>InDMix Events</h2>
       {events.map((event) => {
         return (
           <Container component="div" className={classes.trackBox}>

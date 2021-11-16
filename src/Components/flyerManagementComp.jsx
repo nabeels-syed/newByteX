@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -89,6 +89,14 @@ function FlyerManagementComp() {
     formData.append("eventDate", toInput.eventDate);
     formData.append("file", toInput.file);
 
+    if (!toInput.eventName) {
+      alert("Error! Event name cannot be empty. Please try again");
+      console.log("Event name is empty");
+    } else if (!toInput.file) {
+      alert("Error! No file selected. Please try again");
+      console.log("No file selected");
+    }
+
     const response = await fetch("/api/flyer/createFlyer", {
       method: "POST",
       mode: "cors",
@@ -149,7 +157,7 @@ function FlyerManagementComp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LibraryMusicIcon />
+          <InsertPhotoIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Add Events/Flyers
@@ -172,7 +180,7 @@ function FlyerManagementComp() {
             </Grid>
             <Grid item xs={12}>
               <div id="datePicker">
-                <p>Event date:</p>
+                <p class="manageSiteDate">Event date:</p>
                 <DatePicker
                   required
                   dateFormat="yyyy-MM-dd"

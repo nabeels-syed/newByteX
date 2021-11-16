@@ -125,6 +125,9 @@ nav {
 #scroller a {
   padding-top: 60px;
 }
+.manageSiteDate {
+  font-weight: bold;
+}
 #scroller a span {
   position: absolute;
   top: 0;

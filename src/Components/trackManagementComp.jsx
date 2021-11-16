@@ -94,9 +94,15 @@ function TrackManagementComp() {
     formData.append("releaseDate", toInput.releaseDate);
     formData.append("file", toInput.file);
 
-    if (!toInput.title || !toInput.artist) {
-      alert("Error! Title and/or artist cannot be empty. Please try again");
-      console.log("Title is empty")
+    if (!toInput.title) {
+      alert("Error! Title cannot be empty. Please try again");
+      console.log("Title is empty");
+    } else if (!toInput.artist) {
+      alert("Error! Artist cannot be empty. Please try again");
+      console.log("Artist is empty");
+    } else if (!toInput.file) {
+      alert("Error! No file selected. Please try again");
+      console.log("No file selected");
     }
 
     const response = await fetch("/api/track/createTrack", {
@@ -133,8 +139,6 @@ function TrackManagementComp() {
 
     console.log(toInput);
     console.log(releaseDate);
-
-    
   };
 
   const formatTrackDate = (pCalendarTrackDate) => {
@@ -201,9 +205,10 @@ function TrackManagementComp() {
 
             <Grid item xs={12}>
               <div id="datePicker">
+                <p class="manageSiteDate">Track date:</p>
                 <DatePicker
-                required
-                dateFormat="yyyy-MM-dd"
+                  required
+                  dateFormat="yyyy-MM-dd"
                   selected={calendarTrackDate}
                   onChange={(calendarTrackDate) =>
                     setDate(formatTrackDate(calendarTrackDate))

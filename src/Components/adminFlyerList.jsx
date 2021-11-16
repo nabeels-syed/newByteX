@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
   eventsContainer: {
     // scrollBehavior: "smooth",
     overflow: "auto",
-    maxHeight: '20em',
-    marginBottom: '3rem'
+    maxHeight: "20em",
+    marginBottom: "3rem",
   },
   flyerBox: {
     display: "flex",
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: "13em",
     margin: "0 0 2rem 0",
     alignContent: "flex-start",
-    borderBottom: "1px darkgrey solid"
+    borderBottom: "1px darkgrey solid",
   },
   flyerDetails: {
     width: "100%",
@@ -40,21 +40,21 @@ const useStyles = makeStyles((theme) => ({
   },
   eventDetailsBox: {
     width: "70%",
-    paddingLeft: "1rem"
+    paddingLeft: "1rem",
   },
   deleteBtn: {
-    width:"20%",
-    fontSize: "1.5rem"
+    width: "20%",
+    fontSize: "1.5rem",
   },
   flyerImage: {
     alignSelf: "flex-end",
     width: "100%",
   },
   eventOverdue: {
-    color: "red"
-  }, 
+    color: "red",
+  },
   eventHasTime: {
-    color: "green"
+    color: "green",
   },
   flyerManageTitle: {
     fontSize: "3rem",
@@ -89,21 +89,29 @@ const AdminFlyerList = (props) => {
 
   const dateComparer = (eventDate) => {
     const currentDate = moment.now();
-    var momentEventDate = moment(new Date(eventDate)).format('x');
+    var momentEventDate = moment(new Date(eventDate)).format("x");
     const diff = momentEventDate - currentDate;
     const diffDuration = moment.duration(diff);
     return diffDuration.days();
-  }
+  };
 
   const dateDifferenceDisplay = (differenceInDays) => {
     if (differenceInDays < 0) {
-      return <span className={classes.eventOverdue}>This event is {Math.abs(differenceInDays)} day(s) overdue!</span>;
+      return (
+        <span className={classes.eventOverdue}>
+          This event is {Math.abs(differenceInDays)} day(s) overdue!
+        </span>
+      );
     } else if (differenceInDays > 0) {
-      return <span className={classes.eventHasTime}>This event is happening in {differenceInDays} day(s)!</span>;
+      return (
+        <span className={classes.eventHasTime}>
+          This event is happening in {differenceInDays} day(s)!
+        </span>
+      );
     } else {
       return `This event is happening today!`;
     }
-  }
+  };
 
   const setFlyerSource = (id) => {
     return `http://localhost:8080/api/flyer/streamFlyer/${id}`;
@@ -132,8 +140,11 @@ const AdminFlyerList = (props) => {
               <p className={`${classes.flyerDetails} ${classes.flyerTitle}`}>
                 {flyer.eventName}
               </p>
-              <p className={`${classes.flyerDetails} ${classes.flyerSubtitles}`}>
-                Event date: {flyer.eventDate} | {dateDifferenceDisplay(dateComparer(flyer.eventDate))}
+              <p
+                className={`${classes.flyerDetails} ${classes.flyerSubtitles}`}
+              >
+                Event date: {flyer.eventDate} |{" "}
+                {dateDifferenceDisplay(dateComparer(flyer.eventDate))}
               </p>
             </div>
             <Button

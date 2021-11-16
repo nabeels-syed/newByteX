@@ -52,7 +52,7 @@ const Slideshow = () => {
     <div className="slide-container">
       <Zoom {...zoomOutProperties}>
         {images.map((each, index) => (
-          <img key={index} style={{ width: "100%" }} src={each} alt=""/>
+          <img key={index} style={{ width: "100%" }} src={each} alt="" />
         ))}
       </Zoom>
     </div>
@@ -84,25 +84,26 @@ function Home() {
       .then((res) => res.json())
       .then((flyers) => {
         setAppState({ loading: false, flyers: flyers });
-        console.log(flyers)
+        console.log(flyers);
       });
   }, [setAppState]);
   return (
     <Container component="main" maxWidth="s">
       <div id="main">
-        <div className="name">
-
-        </div>
+        <div className="name"></div>
         <div id="parent">
           <div class="slideChild">
             <Slideshow />
           </div>
           <div class="slideChild">
             <div className="Flyers">
-            <div className="flyer-container">
-              <ImageListLoading isLoading={appState.loading} flyers={appState.flyers} />
+              <div className="flyer-container">
+                <ImageListLoading
+                  isLoading={appState.loading}
+                  flyers={appState.flyers}
+                />
+              </div>
             </div>
-          </div>
           </div>
           <div class="child" id="twitch">
             <iframe
@@ -140,5 +141,3 @@ function Home() {
   );
 }
 export default Home;
-
-

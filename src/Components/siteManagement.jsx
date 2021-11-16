@@ -1,13 +1,13 @@
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {React, route, useEffect} from "react";
+import { React, classes, Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Collapsible from "react-collapsible";
 import TrackManagementComp from "./trackManagementComp";
 import FlyerManagementComp from "./flyerManagementComp";
 import { ImPlus, ImMinus } from "react-icons/im/";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   mainContainer: {
-    minHeight: '70vh',
+    minHeight: "70vh",
     maxHeight: "100%",
   },
   collapsibleContainers: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     margin: "0",
     height: "100%",
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     alignContent: "center",
     width: "80%",
   },
@@ -73,11 +73,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SiteManagement() {
+// class SiteManagement extends React.Component {
+//   render() {
+//     return (
+//       <Container className={classes.paper}>
+//       <Container className={classes.mainContainer}>
+//         <Collapsible
+//           className={classes.collapsibleContainers}
+//           openedClassName={classes.openedCollapsibleContainers}
+//           trigger={MusicTrigger}
+//           triggerWhenOpen={MusicTriggerOpen}
+//         >
+//           <TrackManagementComp></TrackManagementComp>
+//         </Collapsible>
+
+//         <Collapsible
+//           className={classes.collapsibleContainers}
+//           openedClassName={classes.openedCollapsibleContainers}
+//           trigger={EventTrigger}
+//           triggerWhenOpen={EventTriggerOpen}
+//         >
+//           <FlyerManagementComp></FlyerManagementComp>
+//         </Collapsible>
+//       </Container>
+
+//       {/* <Copyright></Copyright> */}
+//       <br></br>
+//     </Container>
+//     );
+//   }
+// }
+
+function SiteManagement(props) {
   const classes = useStyles();
 
   var cookie = new Cookies();
-  console.log(cookie.get('token'));
+  console.log(cookie.get("token"));
 
   function Copyright() {
     return (
@@ -90,31 +121,68 @@ function SiteManagement() {
   const MusicTrigger = (
     <div className={classes.triggerBox}>
       <span className={classes.triggerStyle}>Manage My Music:</span>
-      <span className={classes.icon}><ImPlus /></span>
+      <span className={classes.icon}>
+        <ImPlus />
+      </span>
     </div>
   );
 
   const MusicTriggerOpen = (
     <div className={classes.triggerBox}>
       <span className={classes.triggerStyle}>Manage My Music:</span>
-      <span className={classes.icon}><ImMinus /></span>
+      <span className={classes.icon}>
+        <ImMinus />
+      </span>
     </div>
   );
 
   const EventTrigger = (
     <div className={classes.triggerBox}>
       <span className={classes.triggerStyle}>Manage My Events and Flyers:</span>
-      <span className={classes.icon}><ImPlus /></span>
+      <span className={classes.icon}>
+        <ImPlus />
+      </span>
     </div>
   );
 
   const EventTriggerOpen = (
     <div className={classes.triggerBox}>
       <span className={classes.triggerStyle}>Manage My Events and Flyers:</span>
-      <span className={classes.icon}><ImMinus /></span>
+      <span className={classes.icon}>
+        <ImMinus />
+      </span>
     </div>
   );
-  
+
+  //   render() {
+  //     return (
+  // <Container className={classes.paper}>
+  //       <Container className={classes.mainContainer}>
+  //         <Collapsible
+  //           className={classes.collapsibleContainers}
+  //           openedClassName={classes.openedCollapsibleContainers}
+  //           trigger={MusicTrigger}
+  //           triggerWhenOpen={MusicTriggerOpen}
+  //         >
+  //           <TrackManagementComp></TrackManagementComp>
+  //         </Collapsible>
+
+  //         <Collapsible
+  //           className={classes.collapsibleContainers}
+  //           openedClassName={classes.openedCollapsibleContainers}
+  //           trigger={EventTrigger}
+  //           triggerWhenOpen={EventTriggerOpen}
+  //         >
+  //           <FlyerManagementComp></FlyerManagementComp>
+  //         </Collapsible>
+  //       </Container>
+
+  //       <Copyright></Copyright>
+  //       <br></br>
+  //     </Container>
+  //     );
+  //   }
+
   return (
     <Container className={classes.paper}>
       <Container className={classes.mainContainer}>

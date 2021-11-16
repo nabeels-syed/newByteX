@@ -81,7 +81,10 @@ function Events() {
       </div>
       <div className="Tracks">
         <div className="track-container">
-          <EventBannerLoading isLoading={appState.loading} events={appState.events} />
+          <EventBannerLoading
+            isLoading={appState.loading}
+            events={appState.events}
+          />
         </div>
         <Box mt={8} class="copyrightFooter">
           <Copyright />

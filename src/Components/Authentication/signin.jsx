@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -62,32 +62,37 @@ export default function SignIn() {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(toInput),
     })
-    .then(response => response.json())
-    .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
+        if (!response.token || response.token == null) {
+          console.log("No token");
+          alert(
+            "Error! Failed to sign in. Please check your email and/or password and try again."
+          );
+        } else {
+          const cookies = new Cookies();
+          cookies.set(
+            "token",
+            { key: response.token },
+            { path: "/", expires: new Date(Date.now() + 86400) }
+          );
+          console.log("Signed in");
+          alert("Successfully sign in!");
+        }
 
-    if (!response.token || response.token == null) {
-      console.log("No token")
-      alert("Error! Failed to sign in. Please check your email and/or password and try again.");
-    } else {
-      const cookies = new Cookies();
-      cookies.set('token', {key: response.token}, {path: '/', expires: new Date(Date.now()+86400)});
-      console.log("Signed in")
-      alert("Successfully sign in!");
-    }
-
-    // let body = await response;
-    // console.log(body);
-    // setMessage(body.ok ? "Sign in successful" : "Sign in failed");
-    // if (
-    //   !alert(
-    //     body.ok
-    //       ? "Successfully sign in!"
-    //       : "Error! Failed to sign in. Please check your email and/or password and try again."
-    //   )
-    // ) {
-    //   // window.location.reload();
-    // }
-});
+        // let body = await response;
+        // console.log(body);
+        // setMessage(body.ok ? "Sign in successful" : "Sign in failed");
+        // if (
+        //   !alert(
+        //     body.ok
+        //       ? "Successfully sign in!"
+        //       : "Error! Failed to sign in. Please check your email and/or password and try again."
+        //   )
+        // ) {
+        //   // window.location.reload();
+        // }
+      });
   }
 
   const handleSubmit = (variables) => {

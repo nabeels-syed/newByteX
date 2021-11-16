@@ -36,7 +36,11 @@ function Navigation(props) {
           <a href="/about">About</a>
         </li>
         <li>
-          <a href="https://dmixbreed.creator-spring.com/" target="_blank" rel="noreferrer">
+          <a
+            href="https://dmixbreed.creator-spring.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
             Merch
           </a>
         </li>
