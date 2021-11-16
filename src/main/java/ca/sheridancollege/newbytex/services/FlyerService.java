@@ -12,7 +12,7 @@ public interface FlyerService {
 	
 	List<Flyer> getAllFlyers();
 	Boolean deleteFlyer(String id);
-    String addFlyer(String eventName, LocalDate eventDate, MultipartFile file) throws IOException;
+    String addFlyer(String eventName, String eventDate, MultipartFile file) throws IOException;
     Flyer findFlyerById(String id) throws IllegalStateException, IOException;
 
 }

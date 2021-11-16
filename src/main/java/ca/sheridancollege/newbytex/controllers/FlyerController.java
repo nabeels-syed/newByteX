@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -53,10 +55,11 @@ public class FlyerController {
 	}
 	 
 	
-	@GetMapping("/streamflyer/{id}")
+	@GetMapping("/streamFlyer/{id}")
 	public void streamflyer(@Valid @PathVariable String id, HttpServletResponse response)
 			throws Exception {
 		FlyerResponseDTO Flyer = flyerMapper.findflyer(id);
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 		FileCopyUtils.copy(Flyer.getStream(), response.getOutputStream());
 	}
 }

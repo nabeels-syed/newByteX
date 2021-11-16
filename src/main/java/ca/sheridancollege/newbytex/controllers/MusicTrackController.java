@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -63,6 +65,7 @@ public class MusicTrackController {
 	public void streamTrack(@Valid @PathVariable String id, HttpServletResponse response)
 			throws Exception {
 		MusicTrackResponseDTO musicTrack = trackMapper.findTrack(id);
+		response.setContentType("audio/mpeg");
 		FileCopyUtils.copy(musicTrack.getStream(), response.getOutputStream());
 	}
 }

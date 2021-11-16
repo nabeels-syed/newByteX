@@ -30,7 +30,7 @@ public class Flyer {
 	@NotNull
 	@NotBlank(message = "Event Date is mandatory")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate eventDate;
+	private String eventDate;
 	
 	private String fileType;
 	

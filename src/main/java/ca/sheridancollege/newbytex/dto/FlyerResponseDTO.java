@@ -12,7 +12,7 @@ public class FlyerResponseDTO {
 
 	private String eventName;
 
-	private LocalDate eventDate;
+	private String eventDate;
 
 	private String filetype;
 	

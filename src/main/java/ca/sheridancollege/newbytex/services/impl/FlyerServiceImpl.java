@@ -46,7 +46,7 @@ public class FlyerServiceImpl implements FlyerService {
 
 			flyer.setId(((BsonObjectId) flyerFile.getId()).getValue().toString());
 			flyer.setEventName(flyerFile.getMetadata().get("eventName").toString());
-			flyer.setEventDate(LocalDate.parse(flyerFile.getMetadata().get("eventDate").toString()));
+			flyer.setEventDate(flyerFile.getMetadata().get("eventDate").toString());
 
 			try {
 				flyer.setStream(operations.getResource(flyerFile).getInputStream());
@@ -65,7 +65,7 @@ public class FlyerServiceImpl implements FlyerService {
 	}
 
 	@Override
-	public String addFlyer(String eventName, LocalDate eventDate, MultipartFile file) throws IOException {
+	public String addFlyer(String eventName, String eventDate, MultipartFile file) throws IOException {
 		
 		DBObject metaData = new BasicDBObject();
 		metaData.put("type", "flyer");
@@ -83,7 +83,7 @@ public class FlyerServiceImpl implements FlyerService {
 		GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
 		Flyer flyer = new Flyer();
 		flyer.setEventName(file.getMetadata().get("eventName").toString());
-		flyer.setEventDate(LocalDate.parse(file.getMetadata().get("eventDate").toString()));
+		flyer.setEventDate(file.getMetadata().get("eventDate").toString());
 		flyer.setStream(operations.getResource(file).getInputStream());
 		return flyer;
 	}

@@ -13,7 +13,7 @@ public class FlyerRequestDTO {
 
 	private String eventName;
 
-	private LocalDate eventDate;
+	private String eventDate;
 
 	private String filetype;
 	
