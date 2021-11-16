@@ -52,7 +52,7 @@ const Slideshow = () => {
     <div className="slide-container">
       <Zoom {...zoomOutProperties}>
         {images.map((each, index) => (
-          <img key={index} style={{ width: "100%" }} src={each} />
+          <img key={index} style={{ width: "100%" }} src={each} alt=""/>
         ))}
       </Zoom>
     </div>
@@ -61,7 +61,7 @@ const Slideshow = () => {
 
 function Home() {
   const classes = useStyles();
-  const [firstLoad, setLoad] = React.useState(true);
+  // const [firstLoad, setLoad] = React.useState(true);
 
   const ImageListLoading = imageListLoading(list);
   const [appState, setAppState] = useState({
@@ -91,16 +91,8 @@ function Home() {
     <Container component="main" maxWidth="s">
       <div id="main">
         <div className="name">
-          {/* <h1><span>Hello!</span> Welcome to your new site!</h1>
-                    <p className='details'>Explore mixes, products and watchoffjwe livestreams!</p> */}
-        </div>
-        {/* <Container component="main" maxWidth="xs">
-                <Slideshow/>
-                </Container> */}
-        {/* <div className='name' class='child'>
-                    <iframe src="https://player.twitch.tv/?channel=trainwreckstv&parent=localhost" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="760"></iframe>
-                </div> */}
 
+        </div>
         <div id="parent">
           <div class="slideChild">
             <Slideshow />
@@ -121,6 +113,7 @@ function Home() {
               scrolling="no"
               height="378"
               width="760"
+              title="twitchPlayer"
             ></iframe>
             <iframe
               id="chat_embed"
@@ -128,6 +121,7 @@ function Home() {
               class="twitchChat"
               height="500"
               width="350"
+              title="twitchChat"
             ></iframe>
             <section id="scroller" class="demo">
               <a href="#twitch">
@@ -147,70 +141,4 @@ function Home() {
 }
 export default Home;
 
-// export default function Home() {
-//   const classes = useStyles();
-//   const [firstLoad, setLoad] = React.useState(true);
-
-//   function Copyright() {
-//     return (
-//       <Typography variant="body2" color="textSecondary" align="center">
-//         {"newByteX © "} {new Date().getFullYear()}
-//       </Typography>
-//     );
-//   }
-
-//   return (
-//     <Container component="main" maxWidth="s">
-//       <div id="main">
-//         <div className="name">
-//           {/* <h1><span>Hello!</span> Welcome to your new site!</h1>
-//                     <p className='details'>Explore mixes, products and watchoffjwe livestreams!</p> */}
-//         </div>
-//         {/* <Container component="main" maxWidth="xs">
-//                 <Slideshow/>
-//                 </Container> */}
-//         {/* <div className='name' class='child'>
-//                     <iframe src="https://player.twitch.tv/?channel=trainwreckstv&parent=localhost" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="760"></iframe>
-//                 </div> */}
-
-//         <div id="parent">
-//           <div class="slideChild">
-//             <Slideshow />
-//           </div>
-//           <div class="slideChild">
-//             <UserFlyerList />
-//           </div>
-//           <div class="child" id="twitch">
-//             <iframe
-//               src="https://player.twitch.tv/?channel=dmixbreedthedj&parent=localhost"
-//               class="twitchPlayer"
-//               frameborder="0"
-//               allowfullscreen="true"
-//               scrolling="no"
-//               height="378"
-//               width="760"
-//             ></iframe>
-//             <iframe
-//               id="chat_embed"
-//               src="https://www.twitch.tv/embed/dmixbreedthedj/chat?parent=localhost"
-//               class="twitchChat"
-//               height="500"
-//               width="350"
-//             ></iframe>
-//             <section id="scroller" class="demo">
-//               <a href="#twitch">
-//                 <span></span>Twitch
-//               </a>
-//             </section>
-//           </div>
-//         </div>
-//         <Box mt={8}>
-//           <Copyright />
-//           <br></br>
-//         </Box>
-//       </div>
-//       <CssBaseline />
-//     </Container>
-//   );
-// }
 

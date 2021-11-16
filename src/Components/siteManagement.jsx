@@ -1,15 +1,17 @@
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import {React, route, useEffect} from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Collapsible from "react-collapsible";
 import TrackManagementComp from "./trackManagementComp";
 import FlyerManagementComp from "./flyerManagementComp";
+import { ImPlus, ImMinus } from "react-icons/im/";
+import Cookies from 'universal-cookie';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(30),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -30,38 +32,111 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: "100%",
   },
-  collapsibleConatainers: {
-    backgroundColor: "gold",
-    width: "100%",
+  mainContainer: {
+    minHeight: '70vh',
+    maxHeight: "100%",
   },
-  openedCollapsibleConatainers: {
-    backgroundColor: "grey",
+  collapsibleContainers: {
+    backgroundColor: "lightgrey",
     width: "100%",
+    height: "10rem",
+    marginBottom: "2.5rem",
+    padding: "0.5rem 1.5rem",
+  },
+  openedCollapsibleContainers: {
+    backgroundColor: "white",
+    width: "100%",
+    marginBottom: "2.5rem",
+    padding: "0.5rem 1.5rem",
+  },
+  triggerStyle: {
+    fontSize: "3.5rem",
+    fontWeight: "bold",
+    margin: "0",
+    height: "100%",
+    alignSelf: 'flex-start',
+    alignContent: "center",
+    width: "80%",
+  },
+  icon: {
+    fontSize: "3.5rem",
+    margin: "0",
+    textAlign: "right",
+    alignSelf: "flex-end",
+    alignContent: "center",
+    width: "20%",
+  },
+  triggerBox: {
+    display: "flex",
+    alignItems: "baseline",
+    padding: "2.0rem 1.5rem",
   },
 }));
 
 function SiteManagement() {
   const classes = useStyles();
-  
+
+  var cookie = new Cookies();
+  console.log(cookie.get('token'));
+
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {"newByteX © "} {new Date().getFullYear()}
+        {"newByteX ©"} {new Date().getFullYear()}
       </Typography>
     );
   }
 
-  return (
-    <Container>
-      <Collapsible
-        className={classes.collapsibleConatainers}
-        openedClassName={classes.openedCollapsibleConatainers}
-        trigger="Manage Music Tracks"
-      >
-      </Collapsible>
+  const MusicTrigger = (
+    <div className={classes.triggerBox}>
+      <span className={classes.triggerStyle}>Manage My Music:</span>
+      <span className={classes.icon}><ImPlus /></span>
+    </div>
+  );
 
-      <TrackManagementComp></TrackManagementComp>
-      <FlyerManagementComp></FlyerManagementComp>
+  const MusicTriggerOpen = (
+    <div className={classes.triggerBox}>
+      <span className={classes.triggerStyle}>Manage My Music:</span>
+      <span className={classes.icon}><ImMinus /></span>
+    </div>
+  );
+
+  const EventTrigger = (
+    <div className={classes.triggerBox}>
+      <span className={classes.triggerStyle}>Manage My Events and Flyers:</span>
+      <span className={classes.icon}><ImPlus /></span>
+    </div>
+  );
+
+  const EventTriggerOpen = (
+    <div className={classes.triggerBox}>
+      <span className={classes.triggerStyle}>Manage My Events and Flyers:</span>
+      <span className={classes.icon}><ImMinus /></span>
+    </div>
+  );
+  
+  return (
+    <Container className={classes.paper}>
+      <Container className={classes.mainContainer}>
+        <Collapsible
+          className={classes.collapsibleContainers}
+          openedClassName={classes.openedCollapsibleContainers}
+          trigger={MusicTrigger}
+          triggerWhenOpen={MusicTriggerOpen}
+        >
+          <TrackManagementComp></TrackManagementComp>
+        </Collapsible>
+
+        <Collapsible
+          className={classes.collapsibleContainers}
+          openedClassName={classes.openedCollapsibleContainers}
+          trigger={EventTrigger}
+          triggerWhenOpen={EventTriggerOpen}
+        >
+          <FlyerManagementComp></FlyerManagementComp>
+        </Collapsible>
+      </Container>
+
       <Copyright></Copyright>
       <br></br>
     </Container>

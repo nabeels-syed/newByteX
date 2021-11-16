@@ -56,7 +56,7 @@ function Tracks() {
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {"newByteX © "} {new Date().getFullYear()}
+        {"newByteX Â© "} {new Date().getFullYear()}
       </Typography>
     );
   }
@@ -94,5 +94,4 @@ function Tracks() {
     </Container>
   );
 }
-
 export default Tracks;

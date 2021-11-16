@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +18,7 @@ import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(7),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -108,13 +107,13 @@ function FlyerManagementComp() {
           ? "Flyer added successfully!"
           : "Error! Flyer failed to upload. Please try again"
       )
-    ) 
-    {
+    ) {
       // window.location.reload();
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const toInput = { eventName, eventDate, file };
 
     apiFunc(toInput);
@@ -127,13 +126,14 @@ function FlyerManagementComp() {
   };
 
   const formatEventDate = (pCalendarEventDate) => {
-    console.log("Logging event Date "+ pCalendarEventDate);
+    console.log("Logging event Date " + pCalendarEventDate);
     setCalendarEventDate(pCalendarEventDate);
     const formattedDate = moment(pCalendarEventDate).format("YYYY-MM-DD");
     console.log("Formatted Date " + formattedDate);
 
+    console.log("The datatype " + typeof formattedDate);
     return formattedDate;
-  }
+  };
 
   useEffect(() => {
     setAppState({ loading: true });
@@ -149,12 +149,12 @@ function FlyerManagementComp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <InsertPhotoIcon />
+          <LibraryMusicIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Add Events/Flyers
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -172,11 +172,14 @@ function FlyerManagementComp() {
             </Grid>
             <Grid item xs={12}>
               <div id="datePicker">
+                <p>Event date:</p>
                 <DatePicker
                   required
                   dateFormat="yyyy-MM-dd"
                   selected={calendarEventDate}
-                  onChange={(calendarEventDate) => setEventDate(formatEventDate(calendarEventDate))}
+                  onChange={(calendarEventDate) =>
+                    setEventDate(formatEventDate(calendarEventDate))
+                  }
                   id="datePicker"
                 />
               </div>
@@ -188,17 +191,8 @@ function FlyerManagementComp() {
                   type="file"
                   name="file"
                   onChange={handlesetFlyerFileChange}
+                  accept="image/png, image/jpeg"
                 ></input>
-                <Button
-                  size="lg"
-                  variant="contained"
-                  color="light"
-                  required
-                  className={classes.submit}
-                  onClick={openFileSelector}
-                >
-                  Select File
-                </Button>
                 <div>
                   {filesContent.map((file, index) =>
                     console.log("Test")(
@@ -222,9 +216,9 @@ function FlyerManagementComp() {
             fullWidth
             variant="contained"
             color="info"
-            preventefault
+            preventDefault
             className={classes.submit}
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Add Flyer
           </Button>

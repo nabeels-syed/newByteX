@@ -58,9 +58,9 @@ function Navigation(props) {
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
-        <li>
+        {/* <li>
           <a href="/siteManagement">Site Management</a>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

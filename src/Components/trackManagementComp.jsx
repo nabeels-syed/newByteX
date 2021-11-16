@@ -15,10 +15,11 @@ import { useFilePicker } from "use-file-picker";
 import list from "./adminTrackList";
 import trackListLoading from "./trackListLoading";
 import Collapsible from "react-collapsible";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(20),
+    marginTop: theme.spacing(7),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -54,6 +55,7 @@ function TrackManagementComp() {
 
   const [title, setTrackName] = React.useState("");
   const [artist, setTrackArtist] = React.useState("");
+  const [calendarTrackDate, setCalendarTrackDate] = React.useState(new Date());
   const [releaseDate, setDate] = useState(new Date());
   const [file, setTrackFile] = React.useState();
 
@@ -92,6 +94,11 @@ function TrackManagementComp() {
     formData.append("releaseDate", toInput.releaseDate);
     formData.append("file", toInput.file);
 
+    if (!toInput.title || !toInput.artist) {
+      alert("Error! Title and/or artist cannot be empty. Please try again");
+      console.log("Title is empty")
+    }
+
     const response = await fetch("/api/track/createTrack", {
       method: "POST",
       mode: "cors",
@@ -126,6 +133,18 @@ function TrackManagementComp() {
 
     console.log(toInput);
     console.log(releaseDate);
+
+    
+  };
+
+  const formatTrackDate = (pCalendarTrackDate) => {
+    console.log("Logging track Date " + pCalendarTrackDate);
+    setCalendarTrackDate(pCalendarTrackDate);
+    const formattedDate = moment(pCalendarTrackDate).format("YYYY-MM-DD");
+    console.log("Formatted Date " + formattedDate);
+
+    console.log("The datatype " + typeof formattedDate);
+    return formattedDate;
   };
 
   useEffect(() => {
@@ -183,12 +202,12 @@ function TrackManagementComp() {
             <Grid item xs={12}>
               <div id="datePicker">
                 <DatePicker
-                  dateFormat="yyyy-MM-dd"
-                  // dateFormatCalendar='yyyy-MM-dd'
-                  selected={releaseDate}
-                  onChange={(releaseDate) => setDate(releaseDate)}
-                  onCalendarClose={handleCalendarClose}
-                  onCalendarOpen={handleCalendarOpen}
+                required
+                dateFormat="yyyy-MM-dd"
+                  selected={calendarTrackDate}
+                  onChange={(calendarTrackDate) =>
+                    setDate(formatTrackDate(calendarTrackDate))
+                  }
                   id="datePicker"
                 />
               </div>
@@ -200,17 +219,8 @@ function TrackManagementComp() {
                   type="file"
                   name="file"
                   onChange={handlesetTrackFileChange}
+                  accept="image/png, image/jpeg"
                 ></input>
-                <Button
-                  size="lg"
-                  variant="contained"
-                  color="light"
-                  required
-                  className={classes.submit}
-                  onClick={openFileSelector}
-                >
-                  Select File
-                </Button>
                 <div>
                   {filesContent.map((file, index) =>
                     console.log("Test")(
@@ -233,7 +243,7 @@ function TrackManagementComp() {
             fullWidth
             variant="contained"
             color="info"
-            preventefault
+            preventDefault
             className={classes.submit}
             onClick={handleSubmit}
           >
