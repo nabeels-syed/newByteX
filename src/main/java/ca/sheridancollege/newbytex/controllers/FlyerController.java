@@ -49,14 +49,14 @@ public class FlyerController {
 	@PostMapping(value = "/createflyer", consumes = {
 			"multipart/form-data"
 	})
-	public ResponseEntity<FlyerResponseDTO> addflyer(@Valid @ModelAttribute FlyerRequestDTO flyerRequest,
+	public ResponseEntity<FlyerResponseDTO> addFlyer(@Valid @ModelAttribute FlyerRequestDTO flyerRequest,
 			BindingResult bindingResult) throws IOException {
 		return ResponseEntity.ok(flyerMapper.createflyer(flyerRequest));
 	}
 	 
 	
 	@GetMapping("/streamFlyer/{id}")
-	public void streamflyer(@Valid @PathVariable String id, HttpServletResponse response)
+	public void streamFlyer(@Valid @PathVariable String id, HttpServletResponse response)
 			throws Exception {
 		FlyerResponseDTO Flyer = flyerMapper.findflyer(id);
 		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
