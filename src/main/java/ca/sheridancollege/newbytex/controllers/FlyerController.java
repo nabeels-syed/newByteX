@@ -41,12 +41,12 @@ public class FlyerController {
 		return ResponseEntity.ok(flyerMapper.findflyer(flyerRequest));
 	}
 
-	@PostMapping("/deleteflyer")
+	@PostMapping("/deleteFlyer")
 	public Boolean deleteFlyer(@Valid @RequestBody FlyerRequestDTO flyerRequest, BindingResult bindingResult) {
 		return flyerMapper.deleteflyer(flyerRequest);
 	}
 	
-	@PostMapping(value = "/createflyer", consumes = {
+	@PostMapping(value = "/createFlyer", consumes = {
 			"multipart/form-data"
 	})
 	public ResponseEntity<FlyerResponseDTO> addFlyer(@Valid @ModelAttribute FlyerRequestDTO flyerRequest,
