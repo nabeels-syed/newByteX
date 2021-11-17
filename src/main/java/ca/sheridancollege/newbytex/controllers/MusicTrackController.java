@@ -36,34 +36,29 @@ public class MusicTrackController {
 	}
 
 	@PostMapping("/getTrack")
-	public ResponseEntity<MusicTrackResponseDTO> getTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest,
-			BindingResult bindingResult) throws IOException {
+	public ResponseEntity<MusicTrackResponseDTO> getTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest)
+			throws IOException {
 		return ResponseEntity.ok(trackMapper.findTrack(trackRequest));
 	}
 
 	@PostMapping("/deleteTrack")
-	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, BindingResult bindingResult) {
+	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest) {
 		return trackMapper.deleteTrack(trackRequest);
 	}
-	
-	@PostMapping(value = "/createTrack", consumes = {
-			"multipart/form-data"
-	})
-	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest,
-			BindingResult bindingResult) throws IOException {
+
+	@PostMapping(value = "/createTrack", consumes = { "multipart/form-data" })
+	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest)
+			throws IOException {
 		return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
 	}
 
-
 	@PostMapping("/updateTrack")
-	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest,
-			BindingResult bindingResult) {
+	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest) {
 		return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
 	}
-	
+
 	@GetMapping("/streamTrack/{id}")
-	public void streamTrack(@Valid @PathVariable String id, HttpServletResponse response)
-			throws Exception {
+	public void streamTrack(@Valid @PathVariable String id, HttpServletResponse response) throws Exception {
 		MusicTrackResponseDTO musicTrack = trackMapper.findTrack(id);
 		response.setContentType("audio/mpeg");
 		FileCopyUtils.copy(musicTrack.getStream(), response.getOutputStream());

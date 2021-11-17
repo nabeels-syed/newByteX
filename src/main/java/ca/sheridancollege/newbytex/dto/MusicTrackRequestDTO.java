@@ -8,13 +8,9 @@ import lombok.Data;
 public class MusicTrackRequestDTO {
 
 	private String id;
-
 	private String title;
-
 	private String artist;
-
 	private String releaseDate;
-	
 	private MultipartFile file;
-
 }
+

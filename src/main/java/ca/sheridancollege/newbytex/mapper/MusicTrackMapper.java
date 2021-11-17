@@ -39,6 +39,12 @@ public class MusicTrackMapper {
 	public MusicTrackResponseDTO convertToResponseDto(String id) {
 		return trackMapper.map(id, MusicTrackResponseDTO.class);
 	}
+	
+	public MusicTrackResponseDTO createTrack(MusicTrackRequestDTO trackRequest) throws IOException {
+		MusicTrack track = convertToEntity(trackRequest);
+		return convertToResponseDto(trackService.addTrack(track.getArtist(), track.getTitle(),
+				track.getReleaseDate(), trackRequest.getFile()));
+	}
 
 	public MusicTrackResponseDTO findTrack(MusicTrackRequestDTO trackRequest) throws IllegalStateException, IOException {
 		return convertToResponseDto(trackService.getTrack(convertToEntity(trackRequest).getId()));
@@ -60,11 +66,5 @@ public class MusicTrackMapper {
 
 	public Boolean deleteTrack(MusicTrackRequestDTO trackRequest) {
 		return trackService.deleteTrack(convertToEntity(trackRequest).getId());
-	}
-
-	public MusicTrackResponseDTO createTrack(MusicTrackRequestDTO trackRequest) throws IOException {
-		MusicTrack track = convertToEntity(trackRequest);
-		return convertToResponseDto(trackService.addTrack(track.getArtist(), track.getTitle(),
-				track.getReleaseDate(), trackRequest.getFile()));
 	}
 }

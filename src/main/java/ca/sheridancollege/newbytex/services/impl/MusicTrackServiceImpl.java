@@ -47,7 +47,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 
 	@Override
 	public List<MusicTrack> getAllTracks() {
-//		return trackRepository.findAll();
+
 		List<GridFSFile> trackList = new ArrayList<GridFSFile>();
 		List<MusicTrack> tracks = new ArrayList<MusicTrack>();
 		
@@ -70,20 +70,9 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 		
 		return tracks;
 	}
-
 	
-	/*
-	 * updateTrack currently does not function
-	 * issue with updating file metadata
-	 */
 	@Override
 	public MusicTrack updateTrack(String artist, String title, String id, String releaseDate) {
-
-		/*
-		 * DBObject metaData = new BasicDBObject(); metaData.put("type", "track");
-		 * metaData.put("title", title); metaData.put("artist", artist);
-		 * metaData.put("releaseDate", releaseDate);
-		 */
 
 		MusicTrack updatedTrack = trackRepository.findOneById(id);
 		if (updatedTrack != null) {
@@ -114,13 +103,6 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 			return true;
 		}
 		return false;
-		
-//		MusicTrack track = trackRepository.findOneById(id);
-//		if (track != null) {
-//			trackRepository.delete(track);
-//			return true;
-//		}
-//		return false;
 	}
 
 	@Override
@@ -138,7 +120,6 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 	@Override
 	public MusicTrack getTrack(String id) throws IllegalStateException, IOException {
 		GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-//		GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(new ObjectId(id))));
 		MusicTrack track = new MusicTrack();
 		track.setTitle(file.getMetadata().get("title").toString());
 		track.setArtist(file.getMetadata().get("artist").toString());

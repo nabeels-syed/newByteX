@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -38,6 +39,7 @@ public class MusicTrack {
 	
 	@NotNull
 	@NotBlank(message = "Release Date is mandatory")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private String releaseDate;
 	
 	private InputStream stream;
