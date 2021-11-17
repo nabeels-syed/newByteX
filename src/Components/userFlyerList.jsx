@@ -1,22 +1,6 @@
 import Container from "@material-ui/core/Container";
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Zoom } from "react-slideshow-image";
-
-const useStyles = makeStyles((theme) => ({
-  rootDiv: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-  },
-  trackBox: {
-    width: "100%",
-    height: 150,
-  },
-  indivTrack: {},
-}));
 
 const zoomOutProperties = {
   duration: 5000,
@@ -28,8 +12,8 @@ const zoomOutProperties = {
 };
 
 const UserFlyerList = (props) => {
-  const classes = useStyles();
   const { flyers } = props;
+  console.log(flyers);
 
   const Slideshow = () => {
     return (
@@ -38,8 +22,9 @@ const UserFlyerList = (props) => {
           {flyers.map((flyer) => (
             <img
               key={flyer.id}
-              style={{ width: "100%" }}
+              style={{ width: "45%", margin: "0 auto", paddingTop: "0" }}
               src={setFlyerSource(flyer.id)}
+              alt={flyer.eventName}
             />
           ))}
         </Zoom>
@@ -54,8 +39,12 @@ const UserFlyerList = (props) => {
   if (!flyers || flyers.length === 0)
     return <p>No upcoming events at the moment, check back later!</p>;
   return (
-    <Container className={classes.rootDiv}>
-      <h2>InDMix Upcoming Events</h2>
+    <Container>
+      <h2
+        style={{ margin: "0 auto", textAlign: "center", paddingBottom: "2em" }}
+      >
+        InDMix Upcoming Events
+      </h2>
       <Slideshow />
     </Container>
   );

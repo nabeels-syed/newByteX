@@ -224,7 +224,7 @@ function TrackManagementComp() {
                   type="file"
                   name="file"
                   onChange={handlesetTrackFileChange}
-                  accept="image/png, image/jpeg"
+                  accept="audio/mpeg"
                 ></input>
                 <div>
                   {filesContent.map((file, index) =>

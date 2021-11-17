@@ -1,7 +1,8 @@
-import Container from "@material-ui/core/Container";
+import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { React, classes, Component } from "react";
+import { React, Component } from "react";
+import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import Collapsible from "react-collapsible";
 import TrackManagementComp from "./trackManagementComp";
@@ -73,41 +74,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// class SiteManagement extends React.Component {
-//   render() {
-//     return (
-//       <Container className={classes.paper}>
-//       <Container className={classes.mainContainer}>
-//         <Collapsible
-//           className={classes.collapsibleContainers}
-//           openedClassName={classes.openedCollapsibleContainers}
-//           trigger={MusicTrigger}
-//           triggerWhenOpen={MusicTriggerOpen}
-//         >
-//           <TrackManagementComp></TrackManagementComp>
-//         </Collapsible>
+// Use useEffect()
 
-//         <Collapsible
-//           className={classes.collapsibleContainers}
-//           openedClassName={classes.openedCollapsibleContainers}
-//           trigger={EventTrigger}
-//           triggerWhenOpen={EventTriggerOpen}
-//         >
-//           <FlyerManagementComp></FlyerManagementComp>
-//         </Collapsible>
-//       </Container>
-
-//       {/* <Copyright></Copyright> */}
-//       <br></br>
-//     </Container>
-//     );
-//   }
-// }
-
-function SiteManagement(props) {
+function SiteManagement() {
   const classes = useStyles();
 
-  var cookie = new Cookies();
+  // Let and const only, no var
+  const cookie = new Cookies();
   console.log(cookie.get("token"));
 
   function Copyright() {
@@ -154,57 +127,34 @@ function SiteManagement(props) {
     </div>
   );
 
-  //   render() {
-  //     return (
-  // <Container className={classes.paper}>
-  //       <Container className={classes.mainContainer}>
-  //         <Collapsible
-  //           className={classes.collapsibleContainers}
-  //           openedClassName={classes.openedCollapsibleContainers}
-  //           trigger={MusicTrigger}
-  //           triggerWhenOpen={MusicTriggerOpen}
-  //         >
-  //           <TrackManagementComp></TrackManagementComp>
-  //         </Collapsible>
-
-  //         <Collapsible
-  //           className={classes.collapsibleContainers}
-  //           openedClassName={classes.openedCollapsibleContainers}
-  //           trigger={EventTrigger}
-  //           triggerWhenOpen={EventTriggerOpen}
-  //         >
-  //           <FlyerManagementComp></FlyerManagementComp>
-  //         </Collapsible>
-  //       </Container>
-
-  //       <Copyright></Copyright>
-  //       <br></br>
-  //     </Container>
-  //     );
-  //   }
+  // if there is a cookie, return collapsible, : is else ternary statement
 
   return (
     <Container className={classes.paper}>
-      <Container className={classes.mainContainer}>
-        <Collapsible
-          className={classes.collapsibleContainers}
-          openedClassName={classes.openedCollapsibleContainers}
-          trigger={MusicTrigger}
-          triggerWhenOpen={MusicTriggerOpen}
-        >
-          <TrackManagementComp></TrackManagementComp>
-        </Collapsible>
+      {console.log(cookie.get("token"))}
+      {cookie.get("token") ? (
+        <Container className={classes.mainContainer}>
+          <Collapsible
+            className={classes.collapsibleContainers}
+            openedClassName={classes.openedCollapsibleContainers}
+            trigger={MusicTrigger}
+            triggerWhenOpen={MusicTriggerOpen}
+          >
+            <TrackManagementComp></TrackManagementComp>
+          </Collapsible>
 
-        <Collapsible
-          className={classes.collapsibleContainers}
-          openedClassName={classes.openedCollapsibleContainers}
-          trigger={EventTrigger}
-          triggerWhenOpen={EventTriggerOpen}
-        >
-          <FlyerManagementComp></FlyerManagementComp>
-        </Collapsible>
-      </Container>
-
+          <Collapsible
+            className={classes.collapsibleContainers}
+            openedClassName={classes.openedCollapsibleContainers}
+            trigger={EventTrigger}
+            triggerWhenOpen={EventTriggerOpen}
+          >
+            <FlyerManagementComp></FlyerManagementComp>
+          </Collapsible>
+        </Container>
+      ) : (
+        <Redirect to="/sign-in" />
+      )}
       <Copyright></Copyright>
       <br></br>
     </Container>

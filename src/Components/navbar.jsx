@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import logo from "../Assests/Images/Logo.png";
+import Cookies from "universal-cookie";
 
 function Navigation(props) {
   const [nav, setNav] = useState(false);
+  const cookie = new Cookies();
 
   const changeBackround = () => {
     if (window.scrollY >= 50) {
@@ -36,11 +38,7 @@ function Navigation(props) {
           <a href="/about">About</a>
         </li>
         <li>
-          <a
-            href="https://dmixbreed.creator-spring.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href="https://dmixbreed.creator-spring.com/" target="_blank" rel="noreferrer">
             Merch
           </a>
         </li>
@@ -62,9 +60,11 @@ function Navigation(props) {
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
-        {/* <li>
+        {cookie.get('token') ? (
+        <li>
           <a href="/siteManagement">Site Management</a>
-        </li> */}
+        </li>
+        ): null}
       </ul>
     </nav>
   );

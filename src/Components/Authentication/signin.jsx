@@ -74,24 +74,11 @@ export default function SignIn() {
           cookies.set(
             "token",
             { key: response.token },
-            { path: "/", expires: new Date(Date.now() + 86400) }
+            { path: "/", expires: new Date(Date.now() + 604800) }
           );
           console.log("Signed in");
           alert("Successfully sign in!");
         }
-
-        // let body = await response;
-        // console.log(body);
-        // setMessage(body.ok ? "Sign in successful" : "Sign in failed");
-        // if (
-        //   !alert(
-        //     body.ok
-        //       ? "Successfully sign in!"
-        //       : "Error! Failed to sign in. Please check your email and/or password and try again."
-        //   )
-        // ) {
-        //   // window.location.reload();
-        // }
       });
   }
 
