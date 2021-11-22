@@ -78,6 +78,7 @@ export default function SignIn() {
           );
           console.log("Signed in");
           alert("Successfully sign in!");
+          window.location.reload();
         }
       });
   }
