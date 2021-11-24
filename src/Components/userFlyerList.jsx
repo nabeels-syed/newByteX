@@ -8,7 +8,8 @@ const zoomOutProperties = {
   infinite: true,
   indicators: true,
   scale: 0.4,
-  arrows: false,
+  arrows: true,
+  canSwipe: true,
 };
 
 const UserFlyerList = (props) => {

@@ -10,11 +10,12 @@ import Typography from "@material-ui/core/Typography";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Cookies from "universal-cookie";
+import AuthService from "../../services/auth-service";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(18),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -35,6 +36,31 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: "100%",
   },
+  validationMsg: {
+    color: "red",
+    fontWeight: "bolder",
+    textAlign: "center",
+  },
+  isRequired: {
+    // border: "3px solid red",
+    boxShadow: "3px inset",
+  },
+  input: {
+    font: "inherit",
+    color: "currentColor",
+    width: "100%",
+    border: 0,
+    height: "1.1876em",
+    margin: 0,
+    display: "block",
+    padding: "6px 0 7px",
+    minWidth: 0,
+    background: "none",
+    boxSizing: "content-box",
+    animationName: "mui-auto-fill-cancel",
+    letterSpacing: "inherit",
+    animationDuration: "10ms",
+  },
 }));
 
 export default function SignIn() {
@@ -48,6 +74,9 @@ export default function SignIn() {
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
   const [message, setMessage] = React.useState("");
+  const [errors, setErrors] = React.useState({});
+
+  const authService = AuthService.getInstance();
 
   async function apiFunc(toInput) {
     const response = await fetch("/api/auth/login", {
@@ -64,30 +93,38 @@ export default function SignIn() {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (!response.token || response.token == null) {
-          console.log("No token");
+        if (!response.email || response.email == null) {
           alert(
             "Error! Failed to sign in. Please check your email and/or password and try again."
           );
         } else {
-          const cookies = new Cookies();
-          cookies.set(
-            "token",
-            { key: response.token },
-            { path: "/", expires: new Date(Date.now() + 604800) }
-          );
-          console.log("Signed in");
+          authService.loginAndStoreSecureToken(response.token);
           alert("Successfully sign in!");
-          window.location.reload();
+          window.location.href = "/";
         }
       });
   }
 
-  const handleSubmit = (variables) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+    }
     const toInput = { email, password };
     apiFunc(toInput);
     setEmail("");
     setPassword("");
+  };
+
+  const validate = () => {
+    let temp = {};
+    temp.email = email ? "" : "This field is required";
+    temp.emailValid = /.+@.+..+/.test(email) ? "" : "Email is not valid";
+    temp.password = password ? "" : "This field is required";
+    setErrors({
+      ...temp,
+    });
+
+    return Object.values(temp).every((x) => x === "");
   };
 
   if (firstLoad) {
@@ -105,76 +142,83 @@ export default function SignIn() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <br></br>
-        <br></br>
-        <br></br>
-        <Avatar className={classes.avatar}>
-          <AccountCircleSharpIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign In
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                value={email}
-                label="Email"
-                name="email"
-                autoComplete="email"
-                onChange={handleEmailChange}
-              />
-            </Grid>
+      {!authService.hasSecureToken() ? (
+        <Container>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Avatar className={classes.avatar}>
+              <AccountCircleSharpIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign In
+            </Typography>
+            <form className={classes.form}>
+              {/* onSubmit={handleSubmit} */}
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <p className={classes.validationMsg}>{message}</p>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    value={email}
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    onChange={handleEmailChange}
+                  />
+                </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="password"
+                    value={password}
+                    label="Password"
+                    type="password"
+                    name="password"
+                    autoComplete="password"
+                    onChange={handlePasswordChange}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                // type="submit"
                 fullWidth
-                id="password"
-                value={password}
-                label="Password"
-                type="password"
-                name="password"
-                autoComplete="password"
-                onChange={handlePasswordChange}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            // type="submit"
-            fullWidth
-            variant="contained"
-            color="info"
-            preventefault
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <NavLink to="/forgot">Forgot Password?</NavLink>
-            </Grid>
-            <Grid item>
-              <NavLink to="/sign-up">Don't have an account? Sign Up</NavLink>
-            </Grid>
-          </Grid>
-        </form>
-        <Typography style={{ margin: 7 }} variant="body1">
-          Status: {message}
-        </Typography>
-      </div>
-      <Box mt={8} class="copyrightFooter">
-        <Copyright />
-        <br></br>
-      </Box>
+                variant="contained"
+                color="info"
+                preventdefault
+                className={classes.submit}
+                onClick={handleSubmit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <NavLink to="/forgot">Forgot Password?</NavLink>
+                </Grid>
+                <Grid item>
+                  <NavLink to="/sign-up">
+                    Don't have an account? Sign Up
+                  </NavLink>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          <Box mt={8} class="copyrightFooter">
+            <Copyright />
+            <br></br>
+          </Box>
+        </Container>
+      ) : (
+        <Redirect to="/" />
+      )}
     </Container>
   );
 }

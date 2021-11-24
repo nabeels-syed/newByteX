@@ -8,10 +8,11 @@ import React, { useEffect, useState } from "react";
 import image1 from "../Assests/Images/1.jpeg";
 import image2 from "../Assests/Images/2.jpeg";
 import image3 from "../Assests/Images/3.jpeg";
+import image4 from "../Assests/Images/4.jpeg";
 import list from "./userFlyerList";
 import imageListLoading from "./imageListLoading";
 
-const images = [image1, image2, image3];
+const images = [image1, image2, image3, image4];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const zoomOutProperties = {
-  duration: 5000,
+  duration: 3000,
   transitionDuration: 350,
   infinite: true,
   indicators: true,
@@ -52,7 +53,15 @@ const Slideshow = () => {
     <div className="slide-container">
       <Zoom {...zoomOutProperties}>
         {images.map((each, index) => (
-          <img key={index} style={{ width: "100%" }} src={each} alt="" />
+          <img
+            key={index}
+            style={{
+              width: "2050px",
+              height: "800px",
+            }}
+            src={each}
+            alt=""
+          />
         ))}
       </Zoom>
     </div>

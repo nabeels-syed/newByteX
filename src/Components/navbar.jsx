@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import logo from "../Assests/Images/Logo.png";
-import Cookies from "universal-cookie";
+import AuthService from "../services/auth-service";
 
 function Navigation(props) {
   const [nav, setNav] = useState(false);
-  const cookie = new Cookies();
+  const authService = AuthService.getInstance();
 
   const changeBackround = () => {
     if (window.scrollY >= 50) {
@@ -38,33 +38,41 @@ function Navigation(props) {
           <a href="/about">About</a>
         </li>
         <li>
-          <a href="https://dmixbreed.creator-spring.com/" target="_blank" rel="noreferrer">
+          <a
+            href="https://dmixbreed.creator-spring.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
             Merch
           </a>
         </li>
         <li>
           <a href="/tracks">Tracks</a>
         </li>
-        <li>
+        {/* <li>
           <a href="/contact">Contact</a>
-        </li>
+        </li> */}
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
-        <li>
-          <a href="/sign-up">Sign Up</a>
-        </li>
-        <li>
-          <a href="/sign-in">Sign In</a>
-        </li>
+        {!authService.hasSecureToken() ? (
+          <li>
+            <a href="/sign-up">Sign Up</a>
+          </li>
+        ) : null}
+        {!authService.hasSecureToken() ? (
+          <li>
+            <a href="/sign-in">Sign In</a>
+          </li>
+        ) : null}
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
-        {cookie.get('token') ? (
-        <li>
-          <a href="/siteManagement">Site Management</a>
-        </li>
-        ): null}
+        {authService.hasSecureToken() ? (
+          <li>
+            <a href="/siteManagement">Site Management</a>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );

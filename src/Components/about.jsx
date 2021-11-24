@@ -4,6 +4,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitch,
+  FaSoundcloud,
+} from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+import { SiTiktok } from "react-icons/si";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,6 +66,32 @@ export default function About() {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
+          <br></br>
+          <h2>
+            <span id="contactH2">Contact Me</span>
+          </h2>
+          <br></br>
+          <a href="https://www.instagram.com/dmixbreedthedj/" target="_blank">
+            <FaInstagram class="socialMedia"></FaInstagram>
+          </a>
+          <a href="http://www.facebook.com/dmixbreedthedj" target="_blank">
+            <FaFacebook class="socialMedia"></FaFacebook>
+          </a>
+          <a
+            href="https://www.tiktok.com/@dmixbreedthedj?lang=en"
+            target="_blank"
+          >
+            <SiTiktok class="socialMedia"></SiTiktok>
+          </a>
+          <a href="https://www.twitch.tv/dmixbreedthedj" target="_blank">
+            <FaTwitch class="socialMedia"></FaTwitch>
+          </a>
+          <a href="http://www.soundcloud.com/" target="_blank">
+            <FaSoundcloud class="socialMedia"></FaSoundcloud>
+          </a>
+          <a href="mailto:dmixbreed@gmail.com" target="_blank">
+            <HiOutlineMail class="socialMedia"></HiOutlineMail>
+          </a>
         </div>
       </div>
       <CssBaseline />

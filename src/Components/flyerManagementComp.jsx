@@ -116,7 +116,7 @@ function FlyerManagementComp() {
           : "Error! Flyer failed to upload. Please try again"
       )
     ) {
-      // window.location.reload();
+      window.location.reload();
     }
   }
 

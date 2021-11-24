@@ -54,8 +54,8 @@ nav {
   z-index: 300;
 }
 .navLogo {
-  width: 200px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 .slide-container {
   /* position:absolute;
@@ -245,6 +245,9 @@ nav ul li a:hover {
 nav .menu-btn,
 .menu-icon {
   display: none;
+}
+#contactH2 {
+  font-size: 30px;
 }
 .name {
   font-family: "Montserrat";

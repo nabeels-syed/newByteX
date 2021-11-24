@@ -68,14 +68,6 @@ export default function About() {
           <a href="mailto: test@gmail.com" target="_blank">
             <HiOutlineMail class="socialMedia"></HiOutlineMail>
           </a>
-          {/* <iframe
-            src="https://player.twitch.tv/?channel=trainwreckstv&parent=localhost"
-            frameborder="0"
-            allowfullscreen="true"
-            scrolling="no"
-            height="378"
-            width="620"
-          ></iframe> */}
         </div>
       </div>
       <CssBaseline />
