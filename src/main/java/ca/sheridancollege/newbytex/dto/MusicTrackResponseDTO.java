@@ -9,15 +9,10 @@ import lombok.Data;
 
 @Data
 public class MusicTrackResponseDTO {
-
 	private String id;
-
 	private String title;
-
 	private String artist;
-
 	private String releaseDate;
-	
-//	private MultipartFile file;
 	private InputStream stream;
 }
+

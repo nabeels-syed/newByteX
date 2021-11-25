@@ -22,6 +22,10 @@ import ca.sheridancollege.newbytex.dto.MusicTrackRequestDTO;
 import ca.sheridancollege.newbytex.dto.MusicTrackResponseDTO;
 import ca.sheridancollege.newbytex.mapper.MusicTrackMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,8 +46,14 @@ public class MusicTrackController {
 	}
 
 	@PostMapping("/deleteTrack")
-	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest) {
-		return trackMapper.deleteTrack(trackRequest);
+	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, Authentication authenticaion) {
+		
+		if(authenticaion.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))){
+			return trackMapper.deleteTrack(trackRequest);
+		}
+		else {
+			return false;
+		}
 	}
 
 	@PostMapping(value = "/createTrack", consumes = { "multipart/form-data" })

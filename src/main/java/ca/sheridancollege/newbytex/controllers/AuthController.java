@@ -45,8 +45,7 @@ public class AuthController {
 	@GetMapping("/logout")
 	public ResponseEntity<String> logout(Authentication authentication) {
 
-		authentication.setAuthenticated(false);
-		
+		authentication.setAuthenticated(false);		
 		return ResponseEntity.ok("Logged Out");
 
 	}
@@ -81,6 +80,5 @@ public class AuthController {
 		res.setAdmin(authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN")));
 
 		return ResponseEntity.ok(res);
-
 	}
 }
