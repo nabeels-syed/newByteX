@@ -176,7 +176,7 @@ function TrackManagementComp() {
         <Typography component="h1" variant="h5">
           Add Tracks
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -251,12 +251,13 @@ function TrackManagementComp() {
           </Grid>
 
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             color="info"
             preventDefault
             className={classes.submit}
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Add Track
           </Button>

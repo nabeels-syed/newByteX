@@ -31,6 +31,7 @@ const AdminTrackList = (props) => {
     });
     let body = await response;
     console.log(body);
+    window.location.reload();
   }
 
   const handleDelete = (id) => {
