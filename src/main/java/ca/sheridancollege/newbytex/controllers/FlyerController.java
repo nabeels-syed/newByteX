@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -22,6 +21,7 @@ import ca.sheridancollege.newbytex.dto.FlyerRequestDTO;
 import ca.sheridancollege.newbytex.dto.FlyerResponseDTO;
 import ca.sheridancollege.newbytex.mapper.FlyerMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,22 +42,26 @@ public class FlyerController {
 	}
 
 	@PostMapping("/deleteFlyer")
-	public Boolean deleteFlyer(@Valid @RequestBody FlyerRequestDTO flyerRequest, BindingResult bindingResult) {
-		return flyerMapper.deleteflyer(flyerRequest);
+	public Boolean deleteFlyer(@Valid @RequestBody FlyerRequestDTO flyerRequest, Authentication authentication) {
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return flyerMapper.deleteflyer(flyerRequest);
+		} else {
+			return false;
+		}
 	}
-	
-	@PostMapping(value = "/createFlyer", consumes = {
-			"multipart/form-data"
-	})
+
+	@PostMapping(value = "/createFlyer", consumes = { "multipart/form-data" })
 	public ResponseEntity<FlyerResponseDTO> addFlyer(@Valid @ModelAttribute FlyerRequestDTO flyerRequest,
-			BindingResult bindingResult) throws IOException {
-		return ResponseEntity.ok(flyerMapper.createflyer(flyerRequest));
+			Authentication authentication) throws IOException {
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return ResponseEntity.ok(flyerMapper.createflyer(flyerRequest));
+		} else {
+			return ResponseEntity.ok(new FlyerResponseDTO());
+		}
 	}
-	 
-	
+
 	@GetMapping("/streamFlyer/{id}")
-	public void streamFlyer(@Valid @PathVariable String id, HttpServletResponse response)
-			throws Exception {
+	public void streamFlyer(@Valid @PathVariable String id, HttpServletResponse response) throws Exception {
 		FlyerResponseDTO Flyer = flyerMapper.findflyer(id);
 		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 		FileCopyUtils.copy(Flyer.getStream(), response.getOutputStream());

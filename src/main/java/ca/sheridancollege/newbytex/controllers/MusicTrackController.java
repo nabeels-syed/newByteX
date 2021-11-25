@@ -6,11 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +19,7 @@ import ca.sheridancollege.newbytex.dto.MusicTrackRequestDTO;
 import ca.sheridancollege.newbytex.dto.MusicTrackResponseDTO;
 import ca.sheridancollege.newbytex.mapper.MusicTrackMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +29,8 @@ public class MusicTrackController {
 	private final MusicTrackMapper trackMapper;
 
 	@GetMapping("/getAllTracks")
-	public ResponseEntity<List<MusicTrackResponseDTO>> getAllTracks(Authentication authentication) {
-		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
-			return ResponseEntity.ok(trackMapper.getAllTracks());
-		} else {
-			return null;
-		}
+	public ResponseEntity<List<MusicTrackResponseDTO>> getAllTracks() {
+		return ResponseEntity.ok(trackMapper.getAllTracks());
 	}
 
 	@PostMapping("/getTrack")
@@ -60,14 +50,24 @@ public class MusicTrackController {
 	}
 
 	@PostMapping(value = "/createTrack", consumes = { "multipart/form-data" })
-	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest)
-			throws IOException {
-		return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
+	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest,
+			Authentication authentication) throws IOException {
+
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
+		} else {
+			return ResponseEntity.ok(new MusicTrackResponseDTO());
+		}
 	}
 
 	@PostMapping("/updateTrack")
-	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest) {
-		return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
+	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest,
+			Authentication authentication) {
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
+		} else {
+			return null;
+		}
 	}
 
 	@GetMapping("/streamTrack/{id}")
