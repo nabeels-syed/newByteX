@@ -63,17 +63,6 @@ const UserEventList = (props) => {
       {events.map((event) => {
         return (
           <Container component="div" className={classes.trackBox}>
-            {/* <div key={track.id} className={classes.indivTrack}>
-              <span className="track-id">{track.id} --</span>
-              <span className="track-title">{track.title} --</span>
-              <span className="track-artist"> {track.artist} --</span>
-              <span>
-                <audio type="audio/mpeg" controls volume="true">
-                  <source src={setEventSource(track.id)} type="audio/mpeg"></source>
-                  Your browser does not support the audio element.
-                </audio>
-              </span>
-            </div> */}
             <EventBanner />
           </Container>
         );

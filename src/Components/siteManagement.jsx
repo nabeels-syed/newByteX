@@ -74,8 +74,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Use useEffect()
-
 function SiteManagement() {
   const classes = useStyles();
 
@@ -127,8 +125,6 @@ function SiteManagement() {
     </div>
   );
 
-  // if there is a cookie, return collapsible, : is else ternary statement
-
   return (
     <Container className={classes.paper}>
       {console.log(cookie.get("token"))}
@@ -153,7 +149,7 @@ function SiteManagement() {
           </Collapsible>
         </Container>
       ) : (
-        <Redirect to="/sign-in" />
+        <Redirect to="/" />
       )}
       <Copyright></Copyright>
       <br></br>

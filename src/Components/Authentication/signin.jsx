@@ -70,7 +70,19 @@ export default function SignIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    // let re =
+    //   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // if (re.test(email)) {
+    //   console.log("Valid email");
+    //   // this.setState({ helperText: "", error: false });
+    // } else {
+    //   // invalid email, maybe show an error to the user.
+    //   console.log("Not email");
+    //   // this.setState({ helperText: "Invalid format", error: true });
+    // }
+  };
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
   const [message, setMessage] = React.useState("");
