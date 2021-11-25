@@ -35,8 +35,12 @@ public class MusicTrackController {
 	private final MusicTrackMapper trackMapper;
 
 	@GetMapping("/getAllTracks")
-	public ResponseEntity<List<MusicTrackResponseDTO>> getAllTracks() {
-		return ResponseEntity.ok(trackMapper.getAllTracks());
+	public ResponseEntity<List<MusicTrackResponseDTO>> getAllTracks(Authentication authentication) {
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return ResponseEntity.ok(trackMapper.getAllTracks());
+		} else {
+			return null;
+		}
 	}
 
 	@PostMapping("/getTrack")
@@ -46,12 +50,11 @@ public class MusicTrackController {
 	}
 
 	@PostMapping("/deleteTrack")
-	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, Authentication authenticaion) {
-		
-		if(authenticaion.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))){
+	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, Authentication authentication) {
+
+		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return trackMapper.deleteTrack(trackRequest);
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
