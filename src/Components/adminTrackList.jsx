@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import { ArrowRightSharp } from "@mui/icons-material";
 import React from "react";
 import { useRef } from "react";
+import AuthService from "../services/auth-service";
 
 const AdminTrackList = (props) => {
   const { tracks } = props;
@@ -10,9 +11,14 @@ const AdminTrackList = (props) => {
   const [id, setTrackId] = React.useState("");
   //const [acquiredId, setAcquiredId] = React.useState("");
 
+  const authService = AuthService.getInstance();
+
   async function apiFunc(toInput) {
     const response = await fetch("/api/track/deleteTrack", {
       method: "POST",
+      headers: new Headers({
+        Authorization: authService.getSecureToken,
+      }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",

@@ -4,6 +4,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
+import AuthService from "../services/auth-service";
 
 const useStyles = makeStyles((theme) => ({
   eventsContainer: {
@@ -65,9 +66,14 @@ const AdminFlyerList = (props) => {
   const classes = useStyles();
   const { flyers } = props;
 
+  const authService = AuthService.getInstance();
+
   async function apiFunc(toInput) {
     const response = await fetch("/api/flyer/deleteFlyer", {
       method: "POST",
+      headers: new Headers({
+        Authorization: authService.getSecureToken,
+      }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",

@@ -70,19 +70,7 @@ export default function SignIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    // let re =
-    //   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // if (re.test(email)) {
-    //   console.log("Valid email");
-    //   // this.setState({ helperText: "", error: false });
-    // } else {
-    //   // invalid email, maybe show an error to the user.
-    //   console.log("Not email");
-    //   // this.setState({ helperText: "Invalid format", error: true });
-    // }
-  };
+  const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
   const [message, setMessage] = React.useState("");
@@ -167,14 +155,14 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign In
             </Typography>
-            <form className={classes.form}>
-              {/* onSubmit={handleSubmit} */}
+            <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <p className={classes.validationMsg}>{message}</p>
                   <TextField
                     variant="outlined"
                     required
+                    type="email"
                     fullWidth
                     id="email"
                     value={email}
@@ -201,13 +189,13 @@ export default function SignIn() {
                 </Grid>
               </Grid>
               <Button
-                // type="submit"
+                type="submit"
                 fullWidth
                 variant="contained"
                 color="info"
                 preventdefault
                 className={classes.submit}
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
               >
                 Sign In
               </Button>
@@ -215,11 +203,11 @@ export default function SignIn() {
                 <Grid item xs>
                   <NavLink to="/forgot">Forgot Password?</NavLink>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <NavLink to="/sign-up">
                     Don't have an account? Sign Up
                   </NavLink>
-                </Grid>
+                </Grid> */}
               </Grid>
             </form>
           </div>

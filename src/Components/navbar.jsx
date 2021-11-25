@@ -15,6 +15,10 @@ function Navigation(props) {
     }
   };
 
+  const logoutClicked = () => {
+    authService.logoutAndRemoveSecureToken();
+  };
+
   window.addEventListener("scroll", changeBackround);
 
   return (
@@ -55,7 +59,7 @@ function Navigation(props) {
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
-        {!authService.hasSecureToken() ? (
+        {/* {!authService.hasSecureToken() ? (
           <li>
             <a href="/sign-up">Sign Up</a>
           </li>
@@ -64,13 +68,21 @@ function Navigation(props) {
           <li>
             <a href="/sign-in">Sign In</a>
           </li>
-        ) : null}
+        ) : null} */}
         <li>
           <div>&nbsp; &nbsp; &nbsp;</div>
         </li>
         {authService.hasSecureToken() ? (
           <li>
             <a href="/siteManagement">Site Management</a>
+          </li>
+        ) : null}
+
+        {authService.hasSecureToken() ? (
+          <li>
+            <a href="/" onClick={logoutClicked}>
+              Logout
+            </a>
           </li>
         ) : null}
       </ul>

@@ -44,7 +44,10 @@ export default class AuthService {
     }
   }
 
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+  getSecureToken() {
+    let secureToken = JSON.stringify(this.userCookies.get("secureToken"));
+    let secureTokenSpliced = secureToken.substring(8, 171);
+    console.log(secureTokenSpliced);
+    return secureTokenSpliced;
   }
 }

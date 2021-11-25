@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useFilePicker } from "use-file-picker";
 import list from "./userTrackList";
 import trackListLoading from "./trackListLoading";
+import AuthService from "../services/auth-service";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 function Tracks() {
   const classes = useStyles();
   const [firstLoad, setLoad] = React.useState(true);
+  const authService = AuthService.getInstance();
 
   const TrackListLoading = trackListLoading(list);
   const [appState, setAppState] = useState({

@@ -16,6 +16,7 @@ import list from "./adminTrackList";
 import trackListLoading from "./trackListLoading";
 import Collapsible from "react-collapsible";
 import moment from "moment";
+import AuthService from "../services/auth-service";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,6 +59,8 @@ function TrackManagementComp() {
   const [calendarTrackDate, setCalendarTrackDate] = React.useState(new Date());
   const [releaseDate, setDate] = useState(new Date());
   const [file, setTrackFile] = React.useState();
+
+  const authService = AuthService.getInstance();
 
   const handleTrackNameChange = (event) => {
     console.log("TRACK NAME CHANGE");
@@ -107,6 +110,9 @@ function TrackManagementComp() {
 
     const response = await fetch("/api/track/createTrack", {
       method: "POST",
+      headers: new Headers({
+        Authorization: authService.getSecureToken,
+      }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",

@@ -15,6 +15,7 @@ import list from "./adminFlyerList";
 import imageListLoading from "./imageListLoading";
 import Collapsible from "react-collapsible";
 import moment from "moment";
+import AuthService from "../services/auth-service";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,6 +57,8 @@ function FlyerManagementComp() {
   const [calendarEventDate, setCalendarEventDate] = React.useState(new Date());
   const [eventDate, setEventDate] = React.useState(new Date());
   const [file, setFlyerFile] = React.useState();
+
+  const authService = AuthService.getInstance();
 
   const handleEventNameChange = (event) => {
     console.log("TRACK NAME CHANGE");
@@ -99,6 +102,9 @@ function FlyerManagementComp() {
 
     const response = await fetch("/api/flyer/createFlyer", {
       method: "POST",
+      headers: new Headers({
+        Authorization: authService.getSecureToken,
+      }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",

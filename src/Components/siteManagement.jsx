@@ -1,14 +1,14 @@
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { React, Component } from "react";
+import { React } from "react";
 import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import Collapsible from "react-collapsible";
 import TrackManagementComp from "./trackManagementComp";
 import FlyerManagementComp from "./flyerManagementComp";
 import { ImPlus, ImMinus } from "react-icons/im/";
-import Cookies from "universal-cookie";
+import AuthService from "../services/auth-service";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -76,10 +76,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SiteManagement() {
   const classes = useStyles();
-
-  // Let and const only, no var
-  const cookie = new Cookies();
-  console.log(cookie.get("token"));
+  const authService = AuthService.getInstance();
 
   function Copyright() {
     return (
@@ -127,8 +124,7 @@ function SiteManagement() {
 
   return (
     <Container className={classes.paper}>
-      {console.log(cookie.get("token"))}
-      {cookie.get("token") ? (
+      {authService.hasSecureToken() ? (
         <Container className={classes.mainContainer}>
           <Collapsible
             className={classes.collapsibleContainers}
@@ -149,7 +145,7 @@ function SiteManagement() {
           </Collapsible>
         </Container>
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/sign-in" />
       )}
       <Copyright></Copyright>
       <br></br>
