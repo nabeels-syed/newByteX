@@ -15,7 +15,26 @@ function Navigation(props) {
     }
   };
 
+  async function apiFunc() {
+    const response = await fetch("/api/auth/logout", {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: new Headers({
+        Authorization: authService.getSecureToken,
+      }),
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        window.location.href = "/";
+      });
+  }
+
   const logoutClicked = () => {
+    apiFunc();
     authService.logoutAndRemoveSecureToken();
   };
 

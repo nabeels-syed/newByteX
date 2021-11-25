@@ -36,6 +36,8 @@ export default class AuthService {
     });
   }
 
+  logoutAPICall() {}
+
   hasSecureToken() {
     if (this.userCookies.get("secureToken")) {
       return true;
