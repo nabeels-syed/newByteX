@@ -11,6 +11,7 @@ import image3 from "../Assests/Images/3.jpeg";
 import image4 from "../Assests/Images/4.jpeg";
 import list from "./userFlyerList";
 import imageListLoading from "./imageListLoading";
+import LazyLoad from "react-lazyload";
 
 const images = [image1, image2, image3, image4];
 
@@ -53,15 +54,19 @@ const Slideshow = () => {
     <div className="slide-container">
       <Zoom {...zoomOutProperties}>
         {images.map((each, index) => (
-          <img
-            key={index}
-            style={{
-              width: "2050px",
-              height: "800px",
-            }}
-            src={each}
-            alt=""
-          />
+          <LazyLoad>
+            <img
+              key={index}
+              style={
+                {
+                  // width: "2050px",
+                  // height: "800px",
+                }
+              }
+              src={each}
+              alt=""
+            />
+          </LazyLoad>
         ))}
       </Zoom>
     </div>
@@ -101,7 +106,7 @@ function Home() {
       <div id="main">
         <div className="name"></div>
         <div id="parent">
-          <div class="slideChild">
+          <div class="slideChildHome">
             <Slideshow />
           </div>
           <div class="slideChild">

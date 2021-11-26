@@ -93,9 +93,19 @@ nav {
   overflow: hidden;
   text-align: center;
 }
+.slideChildHome {
+  margin-top: 10rem;
+}
+.slideChildHome img {
+  width: 260%;
+  height: 56.25vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .slideChild img {
   width: 100%;
-  height: auto;
+  /* height: 56.25vw; */
   padding-top: 8em;
   background-size: cover;
   background-repeat: no-repeat;
@@ -125,11 +135,12 @@ nav {
   display: inline-block;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
-  color: #fff;
+  color: #06163a;
   font: normal 400 20px/1 "Roboto", sans-serif;
   letter-spacing: 0.1em;
   text-decoration: none;
   transition: opacity 0.3s;
+  text-shadow: 1px 1px #ff0000c2;
 }
 .demo a:hover {
   opacity: 0.5;
@@ -147,7 +158,7 @@ nav {
   width: 30px;
   height: 50px;
   margin-left: -15px;
-  border: 2px solid #fff;
+  border: 2px solid #06163a;
   border-radius: 50px;
   box-sizing: border-box;
 }
@@ -159,7 +170,8 @@ nav {
   width: 6px;
   height: 6px;
   margin-left: -3px;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: red;
   border-radius: 100%;
   -webkit-animation: sdb10 2s infinite;
   animation: sdb10 2s infinite;
@@ -822,6 +834,18 @@ nav .menu-btn,
   .socialMedia {
     font-size: 27px;
   }
+  .navLogo {
+    width: 25%;
+    height: auto;
+    margin-top: 12px;
+    margin-bottom: 5px;
+  }
+  .makeStyles-triggerStyle-9 {
+    font-size: 1.1rem !important;
+  }
+  .makeStyles-icon-10 {
+    font-size: 1.5rem !important;
+  }
 }
 /* Portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
@@ -844,6 +868,18 @@ nav .menu-btn,
   .socialMedia {
     font-size: 27px;
   }
+  .navLogo {
+    width: 25%;
+    height: auto;
+    margin-top: 12px;
+    margin-bottom: 5px;
+  }
+  .makeStyles-triggerStyle-9 {
+    font-size: 1.1rem !important;
+  }
+  .makeStyles-icon-10 {
+    font-size: 1.5rem !important;
+  }
 }
 /* Landscape */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
@@ -865,5 +901,17 @@ nav .menu-btn,
   }
   .socialMedia {
     font-size: 27px;
+  }
+  .navLogo {
+    width: 25%;
+    height: auto;
+    margin-top: 12px;
+    margin-bottom: 5px;
+  }
+  .makeStyles-triggerStyle-9 {
+    font-size: 1.1rem !important;
+  }
+  .makeStyles-icon-10 {
+    font-size: 1.5rem !important;
   }
 }
