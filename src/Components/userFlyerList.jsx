@@ -38,11 +38,36 @@ const UserFlyerList = (props) => {
   };
 
   if (!flyers || flyers.length === 0)
-    return <p>No upcoming events at the moment, check back later!</p>;
+    return (
+      <p>
+        <br></br>
+        <h2
+          class="upcomingEventsHeading"
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            paddingBottom: "2em",
+            fontSize: "2rem",
+          }}
+        >
+          InDMix Upcoming Events
+        </h2>
+        <b style={{ fontSize: "1rem" }}>
+          No upcoming events at the moment, check back later!
+        </b>
+      </p>
+    );
   return (
     <Container>
+      <br></br>
       <h2
-        style={{ margin: "0 auto", textAlign: "center", paddingBottom: "2em" }}
+        class="upcomingEventsHeading"
+        style={{
+          margin: "0 auto",
+          textAlign: "center",
+          paddingBottom: "2em",
+          fontSize: "2rem",
+        }}
       >
         InDMix Upcoming Events
       </h2>

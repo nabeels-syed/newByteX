@@ -41,7 +41,12 @@ const AdminTrackList = (props) => {
     return `http://localhost:8080/api/track/streamTrack/${id}`;
   };
 
-  if (!tracks || tracks.length === 0) return <p>No tracks uploaded</p>;
+  if (!tracks || tracks.length === 0)
+    return (
+      <p>
+        <b>No tracks uploaded</b>
+      </p>
+    );
   return (
     <ul>
       <h2 className="list-head">My music tracks</h2>

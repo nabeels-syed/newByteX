@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { SiTiktok } from "react-icons/si";
+import image1 from "../Assests/Images/AboutMe.png";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,6 +58,7 @@ export default function About() {
           <h1>
             <span>About</span> Me
           </h1>
+          <img class="aboutMeImage" src={image1} alt="InDMix"></img>
           <p className="details">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

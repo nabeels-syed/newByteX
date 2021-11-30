@@ -123,7 +123,12 @@ const AdminFlyerList = (props) => {
     return `http://localhost:8080/api/flyer/streamFlyer/${id}`;
   };
 
-  if (!flyers || flyers.length === 0) return <p>No flyers uploaded</p>;
+  if (!flyers || flyers.length === 0)
+    return (
+      <p>
+        <b>No flyers uploaded</b>
+      </p>
+    );
   return (
     <Grid className={classes.eventsContainer}>
       <h2 className={classes.flyerManageTitle}>Manage upcoming events</h2>

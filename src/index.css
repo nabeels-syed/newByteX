@@ -119,6 +119,15 @@ nav {
 .twitchChat {
   overflow: hidden;
 }
+.upcomingEventsHeading {
+  font-family: "Roboto", sans-serif;
+}
+.aboutMeImage {
+  float: right;
+  margin: 1rem 0 0 15px;
+  height: 40%;
+  width: 40%;
+}
 .copyrightFooter {
   position: fixed;
   left: 0;
@@ -129,7 +138,7 @@ nav {
 }
 .demo a {
   position: absolute;
-  bottom: 20px;
+  bottom: 0;
   left: 50%;
   z-index: 2;
   display: inline-block;
@@ -846,6 +855,10 @@ nav .menu-btn,
   .makeStyles-icon-10 {
     font-size: 1.5rem !important;
   }
+  .aboutMeImage {
+    width: 50%;
+    height: 50%;
+  }
 }
 /* Portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
@@ -880,6 +893,10 @@ nav .menu-btn,
   .makeStyles-icon-10 {
     font-size: 1.5rem !important;
   }
+  .aboutMeImage {
+    width: 50%;
+    height: 50%;
+  }
 }
 /* Landscape */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
@@ -913,5 +930,9 @@ nav .menu-btn,
   }
   .makeStyles-icon-10 {
     font-size: 1.5rem !important;
+  }
+  .aboutMeImage {
+    width: 50%;
+    height: 50%;
   }
 }
