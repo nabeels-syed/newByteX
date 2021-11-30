@@ -346,6 +346,15 @@ nav .menu-btn,
   margin-top: 60px;
   margin-bottom: -80px;
 }
+.rootDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  overflow: hidden;
+  max-width: 100%;
+  padding-top: 5em;
+  background-color: #fff;
+}
 #about {
   margin-top: 100px;
   width: 100%;
@@ -859,6 +868,15 @@ nav .menu-btn,
     width: 50%;
     height: 50%;
   }
+  .rootDiv {
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: hidden;
+    max-width: 100%;
+    padding-top: 5em;
+    background-color: #fff;
+  }
 }
 /* Portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
@@ -897,6 +915,15 @@ nav .menu-btn,
     width: 50%;
     height: 50%;
   }
+  .rootDiv {
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: hidden;
+    max-width: 100%;
+    padding-top: 5em;
+    background-color: #fff;
+  }
 }
 /* Landscape */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
@@ -934,5 +961,14 @@ nav .menu-btn,
   .aboutMeImage {
     width: 50%;
     height: 50%;
+  }
+  .rootDiv {
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: hidden;
+    max-width: 100%;
+    padding-top: 5em;
+    background-color: #fff;
   }
 }

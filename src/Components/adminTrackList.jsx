@@ -130,7 +130,7 @@ const AdminTrackList = (props) => {
                 {/* <span>Track ID: {track.id}</span>
                 <br></br> */}
                 <span className={classes.trackTitle}>{track.title}</span> -{" "}
-                <span>{track.artist}</span>
+                {track.artist}
                 <br></br>
                 <audio type="audio/mpeg" controls volume="true">
                   <source

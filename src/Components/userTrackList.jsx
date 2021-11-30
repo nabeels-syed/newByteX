@@ -4,15 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  rootDiv: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-    maxWidth: "100%",
-    paddingTop: "5em",
-  },
   trackBox: {
     display: "flex",
     flexWrap: "wrap",
@@ -49,7 +40,7 @@ const UserTrackList = (props) => {
   if (!tracks || tracks.length === 0)
     return <p>No tracks at the moment, check back later!</p>;
   return (
-    <Grid className={classes.rootDiv}>
+    <Grid class="rootDiv">
       {tracks.map((track) => {
         return (
           <Container
