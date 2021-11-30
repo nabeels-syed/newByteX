@@ -103,7 +103,7 @@ function FlyerManagementComp() {
     const response = await fetch("/api/flyer/createFlyer", {
       method: "POST",
       headers: new Headers({
-        Authorization: authService.getSecureToken,
+        Authorization: authService.getSecureToken(),
       }),
       mode: "cors",
       cache: "no-cache",

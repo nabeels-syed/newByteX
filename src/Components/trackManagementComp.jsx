@@ -111,7 +111,7 @@ function TrackManagementComp() {
     const response = await fetch("/api/track/createTrack", {
       method: "POST",
       headers: new Headers({
-        Authorization: authService.getSecureToken,
+        Authorization: authService.getSecureToken(),
       }),
       mode: "cors",
       cache: "no-cache",
@@ -134,7 +134,9 @@ function TrackManagementComp() {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     const toInput = { title, artist, releaseDate, file };
 
     apiFunc(toInput);
@@ -176,7 +178,10 @@ function TrackManagementComp() {
         <Typography component="h1" variant="h5">
           Add Tracks
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form
+          className={classes.form}
+          onSubmit={(event) => handleSubmit(event)}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

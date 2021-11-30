@@ -140,7 +140,7 @@ nav {
   letter-spacing: 0.1em;
   text-decoration: none;
   transition: opacity 0.3s;
-  text-shadow: 1px 1px #ff0000c2;
+  text-shadow: 1px 1px #868686c2;
 }
 .demo a:hover {
   opacity: 0.5;
