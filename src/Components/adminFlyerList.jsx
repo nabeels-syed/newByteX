@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import AuthService from "../services/auth-service";
+import LazyLoad from "react-lazyload";
 
 const useStyles = makeStyles((theme) => ({
   eventsContainer: {
@@ -72,14 +73,12 @@ const AdminFlyerList = (props) => {
     const response = await fetch("/api/flyer/deleteFlyer", {
       method: "POST",
       headers: new Headers({
-        Authorization: authService.getSecureToken,
+        "Content-Type": "application/json",
+        Authorization: authService.getSecureToken(),
       }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(toInput),
@@ -128,54 +127,56 @@ const AdminFlyerList = (props) => {
   return (
     <Grid className={classes.eventsContainer}>
       <h2 className={classes.flyerManageTitle}>Manage upcoming events</h2>
-      {flyers.map((flyer) => {
-        return (
-          <Container
-            component="div"
-            maxWidth={false}
-            className={classes.flyerBox}
-            key={flyer.id}
-          >
-            <div className={classes.imageBox}>
-              <img
-                src={setFlyerSource(flyer.id)}
-                alt={flyer.eventName}
-                className={classes.flyerImage}
-              />
-            </div>
-            <div className={classes.eventDetailsBox}>
-              <p className={`${classes.flyerDetails} ${classes.flyerTitle}`}>
-                {flyer.eventName}
-              </p>
-              <p
-                className={`${classes.flyerDetails} ${classes.flyerSubtitles}`}
-              >
-                Event date: {flyer.eventDate} |{" "}
-                {dateDifferenceDisplay(dateComparer(flyer.eventDate))}
-              </p>
-            </div>
-            <Button
-              className={classes.deleteBtn}
-              fullWidth
-              variant="contained"
-              color="primary"
-              preventefault
-              onClick={() => {
-                const confirmBox = window.confirm(
-                  "Deleting event, please confirm."
-                );
-                if (confirmBox === true) {
-                  console.log(flyer.id);
-                  handleDelete(flyer.id);
-                  // window.location.reload(true);
-                }
-              }}
+      <LazyLoad>
+        {flyers.map((flyer) => {
+          return (
+            <Container
+              component="div"
+              maxWidth={false}
+              className={classes.flyerBox}
+              key={flyer.id}
             >
-              Delete event
-            </Button>
-          </Container>
-        );
-      })}
+              <div className={classes.imageBox}>
+                <img
+                  src={setFlyerSource(flyer.id)}
+                  alt={flyer.eventName}
+                  className={classes.flyerImage}
+                />
+              </div>
+              <div className={classes.eventDetailsBox}>
+                <p className={`${classes.flyerDetails} ${classes.flyerTitle}`}>
+                  {flyer.eventName}
+                </p>
+                <p
+                  className={`${classes.flyerDetails} ${classes.flyerSubtitles}`}
+                >
+                  Event date: {flyer.eventDate} |{" "}
+                  {dateDifferenceDisplay(dateComparer(flyer.eventDate))}
+                </p>
+              </div>
+              <Button
+                className={classes.deleteBtn}
+                fullWidth
+                variant="contained"
+                color="primary"
+                preventefault
+                onClick={() => {
+                  const confirmBox = window.confirm(
+                    "Deleting event, please confirm."
+                  );
+                  if (confirmBox === true) {
+                    console.log(flyer.id);
+                    handleDelete(flyer.id);
+                    // window.location.reload(true);
+                  }
+                }}
+              >
+                Delete event
+              </Button>
+            </Container>
+          );
+        })}
+      </LazyLoad>
     </Grid>
   );
 };

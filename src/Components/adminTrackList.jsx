@@ -17,14 +17,12 @@ const AdminTrackList = (props) => {
     const response = await fetch("/api/track/deleteTrack", {
       method: "POST",
       headers: new Headers({
-        Authorization: authService.getSecureToken,
+        "Content-Type": "application/json",
+        Authorization: authService.getSecureToken(),
       }),
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(toInput),
