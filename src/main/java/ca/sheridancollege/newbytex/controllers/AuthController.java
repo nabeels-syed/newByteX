@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,9 +44,10 @@ public class AuthController {
 	@GetMapping("/logout")
 	public ResponseEntity<String> logout(Authentication authentication) {
 
-		authentication.setAuthenticated(false);		
+		if(authentication != null) {
+			authentication.setAuthenticated(false);	
+		}
 		return ResponseEntity.ok("Logged Out");
-
 	}
 
 
@@ -76,9 +76,12 @@ public class AuthController {
 	public ResponseEntity<AdminResponseDTO> isAdmin(Authentication authentication) {
 
 		AdminResponseDTO res = new AdminResponseDTO();
-
-		res.setAdmin(authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN")));
-
+		
+		if(authentication !=null) {
+			res.setAdmin(authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN")));
+		}
 		return ResponseEntity.ok(res);
+		
+	}
 	}
 }

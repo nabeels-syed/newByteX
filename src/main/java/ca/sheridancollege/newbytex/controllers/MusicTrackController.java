@@ -42,7 +42,7 @@ public class MusicTrackController {
 	@PostMapping("/deleteTrack")
 	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, Authentication authentication) {
 
-		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return trackMapper.deleteTrack(trackRequest);
 		} else {
 			return false;
@@ -53,7 +53,7 @@ public class MusicTrackController {
 	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest,
 			Authentication authentication) throws IOException {
 
-		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
 		} else {
 			return ResponseEntity.ok(new MusicTrackResponseDTO());
@@ -63,7 +63,7 @@ public class MusicTrackController {
 	@PostMapping("/updateTrack")
 	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest,
 			Authentication authentication) {
-		if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
 		} else {
 			return null;
