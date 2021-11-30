@@ -4,8 +4,72 @@ import { ArrowRightSharp } from "@mui/icons-material";
 import React from "react";
 import { useRef } from "react";
 import AuthService from "../services/auth-service";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import moment from "moment";
+import TrackImage from "../Assests/Images/TrackImage.png";
+
+const useStyles = makeStyles((theme) => ({
+  eventsContainer: {
+    // scrollBehavior: "smooth",
+    overflow: "auto",
+    maxHeight: "20em",
+    marginBottom: "3rem",
+  },
+  flyerBox: {
+    display: "flex",
+    flexWrap: "wrap",
+    width: "100%",
+    height: "13em",
+    margin: "0 0 2rem 0",
+    alignContent: "flex-start",
+    borderBottom: "1px darkgrey solid",
+  },
+  flyerDetails: {
+    width: "100%",
+    margin: 0,
+    padding: 0,
+  },
+  flyerTitle: {
+    fontWeight: "bold",
+    fontSize: "2em",
+  },
+  flyerSubtitles: {
+    fontStyle: "italic",
+    fontSize: "1.2em",
+  },
+  imageBox: {
+    alignSelf: "flex-start",
+    width: "10%",
+  },
+  eventDetailsBox: {
+    width: "70%",
+    paddingLeft: "1rem",
+  },
+  deleteBtn: {
+    width: "20%",
+    fontSize: "1.5rem",
+  },
+  flyerImage: {
+    alignSelf: "flex-end",
+    width: "100%",
+  },
+  eventOverdue: {
+    color: "red",
+  },
+  eventHasTime: {
+    color: "green",
+  },
+  flyerManageTitle: {
+    fontSize: "3rem",
+  },
+  trackTitle: {
+    fontSize: "1em",
+  },
+}));
 
 const AdminTrackList = (props) => {
+  const classes = useStyles();
   const { tracks } = props;
   const audioUrl = useRef();
   const [id, setTrackId] = React.useState("");
@@ -48,16 +112,26 @@ const AdminTrackList = (props) => {
       </p>
     );
   return (
-    <ul>
-      <h2 className="list-head">My music tracks</h2>
+    <Grid className={classes.eventsContainer}>
+      <h2 className={classes.flyerManageTitle}>Manage tracks</h2>
       {tracks.map((track) => {
         return (
-          <Container component="list">
-            <div key={track.id} className="trackContainer">
-              <span className="track-id">{track.id} --</span>
-              <span className="track-title">{track.title} --</span>
-              <span className="track-artist"> {track.artist} --</span>
-              <span>
+          <Container
+            component="div"
+            maxWidth={false}
+            className={classes.flyerBox}
+            key={track.id}
+          >
+            <div className={classes.imageBox}>
+              <img src={TrackImage} className={classes.flyerImage} />
+            </div>
+            <div key={track.id} className={classes.eventDetailsBox}>
+              <p className={`${classes.flyerDetails} ${classes.flyerTitle}`}>
+                {/* <span>Track ID: {track.id}</span>
+                <br></br> */}
+                <span className={classes.trackTitle}>{track.title}</span> -{" "}
+                <span>{track.artist}</span>
+                <br></br>
                 <audio type="audio/mpeg" controls volume="true">
                   <source
                     src={setTrackSource(track.id)}
@@ -65,32 +139,31 @@ const AdminTrackList = (props) => {
                   ></source>
                   Your browser does not support the audio element.
                 </audio>
-              </span>
-
-              <Button
-                // type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                preventefault
-                onClick={() => {
-                  const confirmBox = window.confirm(
-                    "Deleting track, please confirm."
-                  );
-                  if (confirmBox === true) {
-                    console.log(track.id);
-                    handleDelete(track.id);
-                    // window.location.reload(true);
-                  }
-                }}
-              >
-                Delete track
-              </Button>
+              </p>
             </div>
+            <Button
+              className={classes.deleteBtn}
+              fullWidth
+              variant="contained"
+              color="primary"
+              preventDefault
+              onClick={() => {
+                const confirmBox = window.confirm(
+                  "Deleting track, please confirm."
+                );
+                if (confirmBox === true) {
+                  console.log(track.id);
+                  handleDelete(track.id);
+                  // window.location.reload(true);
+                }
+              }}
+            >
+              Delete track
+            </Button>
           </Container>
         );
       })}
-    </ul>
+    </Grid>
   );
 };
 

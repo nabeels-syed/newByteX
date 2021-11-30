@@ -164,7 +164,7 @@ const AdminFlyerList = (props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                preventefault
+                preventDefault
                 onClick={() => {
                   const confirmBox = window.confirm(
                     "Deleting event, please confirm."
