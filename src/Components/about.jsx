@@ -53,6 +53,7 @@ export default function About() {
 
   return (
     <Container component="main" maxWidth="s">
+      <div class="divBR"></div>
       <div id="main">
         <div className="name">
           <h1>
@@ -60,13 +61,44 @@ export default function About() {
           </h1>
           <img class="aboutMeImage" src={image1} alt="InDMix"></img>
           <p className="details">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            His introduction to music and DJing came from his father. His dad an
+            immigrant from Trinidad worked many family events, weddings and
+            social outings with fellow Trinidadians playing soca and calypso.
+            Records and turntables in the basement were his practice tools
+            throughout the years.
+          </p>
+          <p className="details">
+            He started to delve into other genres of music he was growing up
+            with and was popular at the time with the circles he socialized
+            within.
+          </p>
+          <p className="details">
+            Hip hop, RandB, House and Top 40 were his playing strength and crowd
+            pleasers at events. Meeting and networking with other DJs in the
+            Greater Toronto area, gave him exposure and recognition for his
+            talent.
+          </p>
+          <p className="details">
+            He was one of their first DJs to move from records to computer to
+            mix. Educating himself on new software and equipment to bring the
+            art of music and sound to the next level.
+          </p>
+          <p className="details">
+            Took a break from DJ public events to focus on his career and
+            personal life, had a family, but always still dabbled with music as
+            a past time, hobby
+          </p>
+          <p className="details">
+            A trip to Trinidad for Carnival sparked the love for music again,
+            and the creative flow came back. He was energized with the new
+            sounds coming out of the soca world. Started to mix around old and
+            new to create a different vibe.
+          </p>
+          <p className="details">
+            His fans now say he is a versatile DJ, he takes on any genre
+            challenge and teaching himself the latest songs and trends. Putting
+            in the work to elevate his skills and up to date with the ever
+            evolving world of sound.
           </p>
           <br></br>
           <h2>
@@ -94,6 +126,7 @@ export default function About() {
           <a href="mailto:dmixbreed@gmail.com" target="_blank">
             <HiOutlineMail class="socialMedia"></HiOutlineMail>
           </a>
+          <div class="divBR2"></div>
         </div>
       </div>
       <CssBaseline />

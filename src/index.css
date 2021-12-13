@@ -429,6 +429,12 @@ nav .menu-btn,
   padding-top: 40px;
   background-color: #ffffff;
 }
+.divBR {
+  height: 13rem;
+}
+.divBR2 {
+  height: 3rem;
+}
 .a-container {
   display: flex;
   justify-content: center;

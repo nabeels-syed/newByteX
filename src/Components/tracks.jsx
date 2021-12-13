@@ -92,6 +92,7 @@ function Tracks() {
           />
         </div>
         <Box mt={8} class="copyrightFooter">
+          <br></br>
           <Copyright />
           <br></br>
         </Box>

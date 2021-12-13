@@ -50,10 +50,10 @@ const UserTrackList = (props) => {
           >
             <p className={`${classes.trackDetails} ${classes.trackTitle}`}>
               {" "}
-              {track.title}
+              {track.artist}
             </p>
             <p className={`${classes.trackDetails} ${classes.trackSubtitles}`}>
-              Artist: {track.artist}
+              Artist: {track.title}
             </p>
             <p className={`${classes.trackDetails} ${classes.trackSubtitles}`}>
               Release Date: {track.releaseDate}
