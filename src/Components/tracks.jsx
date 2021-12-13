@@ -85,7 +85,7 @@ function Tracks() {
       </div>
       <div className="Tracks">
         <div className="track-container">
-          <h2>InDMix Tracks</h2>
+          <h1>InDMix Tracks</h1>
           <TrackListLoading
             isLoading={appState.loading}
             tracks={appState.tracks}

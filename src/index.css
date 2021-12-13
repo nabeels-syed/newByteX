@@ -883,6 +883,9 @@ nav .menu-btn,
     padding-top: 5em;
     background-color: #fff;
   }
+  .divBR {
+    height: 28rem;
+  }
 }
 /* Portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
@@ -930,6 +933,9 @@ nav .menu-btn,
     padding-top: 5em;
     background-color: #fff;
   }
+  .divBR {
+    height: 28rem;
+  }
 }
 /* Landscape */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
@@ -976,5 +982,8 @@ nav .menu-btn,
     max-width: 100%;
     padding-top: 5em;
     background-color: #fff;
+  }
+  .divBR {
+    height: 28rem;
   }
 }
