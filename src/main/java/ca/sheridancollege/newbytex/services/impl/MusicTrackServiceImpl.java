@@ -45,7 +45,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 	@Autowired
 	AmazonS3 s3Client;
 
-	@Value("${DO_SPACE_BUCKET")
+	@Value("${DO_SPACE_BUCKET}")
 	private String doSpaceBucket;
 	
 	private String dir = "track/";
