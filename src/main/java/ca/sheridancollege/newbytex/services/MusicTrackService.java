@@ -13,11 +13,7 @@ public interface MusicTrackService {
 
 	List<MusicTrack> getAllTracks();
 
-	MusicTrack updateTrack(String artist, String title, String id, String releaseDate);
-
 	Boolean deleteTrack(String id);
-
-	//String addTrack(String title, String artist, String releaseDate, MultipartFile file) throws IOException;
 
 	MusicTrack getTrack(String id) throws IllegalStateException, IOException;
 

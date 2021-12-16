@@ -31,7 +31,7 @@ public class FlyerController {
 	private final FlyerMapper flyerMapper;
 
 	@GetMapping("/getAllFlyers")
-	public ResponseEntity<List<FlyerResponseDTO>> getAllFlyers() {
+	public ResponseEntity<List<FlyerResponseDTO>> getAllFlyers() throws IllegalStateException, IOException {
 		return ResponseEntity.ok(flyerMapper.getAllflyers());
 	}
 
