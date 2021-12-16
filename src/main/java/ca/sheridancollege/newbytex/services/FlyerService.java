@@ -10,7 +10,7 @@ import ca.sheridancollege.newbytex.beans.Flyer;
 
 public interface FlyerService {
 	
-	List<Flyer> getAllFlyers();
+	List<Flyer> getAllFlyers() throws IllegalStateException, IOException;
 	Boolean deleteFlyer(String id);
     String addFlyer(String eventName, String eventDate, MultipartFile file) throws IOException;
     Flyer findFlyerById(String id) throws IllegalStateException, IOException;

@@ -60,16 +60,6 @@ public class MusicTrackController {
 		}
 	}
 
-	@PostMapping("/updateTrack")
-	public ResponseEntity<MusicTrackResponseDTO> updateTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest,
-			Authentication authentication) {
-		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
-			return ResponseEntity.ok(trackMapper.updateTrack(trackRequest));
-		} else {
-			return null;
-		}
-	}
-
 	@GetMapping("/streamTrack/{id}")
 	public void streamTrack(@Valid @PathVariable String id, HttpServletResponse response) throws Exception {
 		MusicTrackResponseDTO musicTrack = trackMapper.findTrack(id);

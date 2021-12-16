@@ -59,12 +59,6 @@ public class MusicTrackMapper {
 		return trackService.getAllTracks().stream().map(this::convertToResponseDto).collect(Collectors.toList());
 	}
 
-	public MusicTrackResponseDTO updateTrack(MusicTrackRequestDTO trackRequest) {
-		MusicTrack track = convertToEntity(trackRequest);
-		return convertToResponseDto(trackService.updateTrack(track.getArtist(), track.getTitle(),
-				track.getId(), track.getReleaseDate()));
-	}
-
 	public Boolean deleteTrack(MusicTrackRequestDTO trackRequest) {
 		return trackService.deleteTrack(convertToEntity(trackRequest).getId());
 	}

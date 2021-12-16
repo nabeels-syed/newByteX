@@ -48,7 +48,7 @@ public class FlyerMapper {
 		return convertToResponseDto(flyerService.findFlyerById(id));
 	}
 
-	public List<FlyerResponseDTO> getAllflyers() {
+	public List<FlyerResponseDTO> getAllflyers() throws IllegalStateException, IOException {
 		return flyerService.getAllFlyers().stream().map(this::convertToResponseDto).collect(Collectors.toList());
 	}
 
