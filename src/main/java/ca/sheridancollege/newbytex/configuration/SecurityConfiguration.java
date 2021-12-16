@@ -8,9 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
-import ca.sheridancollege.newbytex.security.JwtConfigurer;
-import ca.sheridancollege.newbytex.security.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -18,9 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-	private final JwtConfigurer jwtConfigurer;
-
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

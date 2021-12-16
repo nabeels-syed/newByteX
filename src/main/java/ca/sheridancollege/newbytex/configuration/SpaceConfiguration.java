@@ -32,5 +32,4 @@ public class SpaceConfiguration {
 				.withEndpointConfiguration(new EndpointConfiguration(doSpaceEndPoint, doSpaceRegion))
 				.withCredentials(new AWSStaticCredentialsProvider(creds)).build();
 	}
-
 }
