@@ -1,5 +1,6 @@
 package ca.sheridancollege.newbytex.services.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.transfer.MultipleFileDownload;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.util.IOUtils;
 import com.mongodb.client.gridfs.model.GridFSFile;
 
+import ca.sheridancollege.newbytex.beans.Flyer;
 import ca.sheridancollege.newbytex.beans.MusicTrack;
 import ca.sheridancollege.newbytex.repositories.MusicTrackRepository;
 import ca.sheridancollege.newbytex.services.MusicTrackService;
@@ -42,12 +45,12 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 
 	@Value("${DO_SPACE_BUCKET}")
 	private String doSpaceBucket;
-	
+
 	private String dir = "track/";
 	private String ext = ".mp3";
 
 	@Override
-	public List<MusicTrack> getAllTracks() {	
+	public List<MusicTrack> getAllTracks() {
 		return trackRepository.findAll();
 	}
 
@@ -59,7 +62,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 
 		MusicTrack track = trackRepository.findOneById(id);
 		trackRepository.delete(track);
-		
+
 		return true;
 	}
 
@@ -72,10 +75,9 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 		newTrack.setTitle(title);
 		newTrack.setReleaseDate(releaseDate);
 		newTrack = trackRepository.save(newTrack);
-		
+
 		String id = newTrack.getId();
 		String filepath = dir + id + ext;
-	
 
 		ObjectMetadata metadata = new ObjectMetadata();
 
@@ -87,7 +89,7 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 
 		s3Client.putObject(new PutObjectRequest(doSpaceBucket, filepath, multipartFile.getInputStream(), metadata)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
-		
+
 		return id;
 	}
 
@@ -96,12 +98,13 @@ public class MusicTrackServiceImpl implements MusicTrackService {
 
 		String filepath = dir + id + ext;
 		S3Object s3Object = s3Client.getObject(doSpaceBucket, filepath);
-		S3ObjectInputStream inputStream = s3Object.getObjectContent();
-		
+
+		byte[] byteArray = IOUtils.toByteArray(s3Object.getObjectContent());
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(byteArray);
+
 		MusicTrack track = trackRepository.findOneById(id);
 		track.setStream(inputStream);
-		s3Object.close();
-		inputStream.close();
+
 		return track;
 	}
 }

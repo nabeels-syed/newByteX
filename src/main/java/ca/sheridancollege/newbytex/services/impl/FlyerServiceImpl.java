@@ -1,6 +1,8 @@
 package ca.sheridancollege.newbytex.services.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
+
 import ca.sheridancollege.newbytex.beans.Flyer;
+import ca.sheridancollege.newbytex.beans.MusicTrack;
 import ca.sheridancollege.newbytex.repositories.FlyerRepository;
 import ca.sheridancollege.newbytex.services.FlyerService;
 import lombok.RequiredArgsConstructor;
@@ -87,12 +92,13 @@ public class FlyerServiceImpl implements FlyerService {
 
 		String filepath = dir + id + ext;
 		S3Object s3Object = s3Client.getObject(doSpaceBucket, filepath);
-		S3ObjectInputStream inputStream = s3Object.getObjectContent();
+
+		byte[] byteArray = IOUtils.toByteArray(s3Object.getObjectContent());
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(byteArray);
 
 		Flyer flyer = flyerRepository.findOneById(id);
 		flyer.setStream(inputStream);
-		s3Object.close();
-		inputStream.close();
+
 		return flyer;
 	}
 }

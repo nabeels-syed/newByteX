@@ -42,27 +42,24 @@ public class MusicTrackController {
 	@PostMapping("/deleteTrack")
 	public Boolean deleteTrack(@Valid @RequestBody MusicTrackRequestDTO trackRequest, Authentication authentication) {
 
-		//if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication != null
+				&& authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return trackMapper.deleteTrack(trackRequest);
-		//} else {
-		//	return false;
-	//	}
+		} else {
+			return false;
+		}
 	}
 
 	@PostMapping(value = "/createTrack", consumes = { "multipart/form-data" })
 	public ResponseEntity<MusicTrackResponseDTO> addTrack(@Valid @ModelAttribute MusicTrackRequestDTO trackRequest,
 			Authentication authentication) throws IOException {
 
-		//if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
-		if(trackRequest.getFile() != null && trackRequest.getFile().getInputStream() != null) {	
-		return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
+		if (authentication != null
+				&& authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+			return ResponseEntity.ok(trackMapper.createTrack(trackRequest));
+		} else {
+			return ResponseEntity.ok(new MusicTrackResponseDTO());
 		}
-		else {
-			return null;
-		}
-		//} else {
-			//return ResponseEntity.ok(new MusicTrackResponseDTO());
-		//}
 	}
 
 	@GetMapping("/streamTrack/{id}")

@@ -43,7 +43,8 @@ public class FlyerController {
 
 	@PostMapping("/deleteFlyer")
 	public Boolean deleteFlyer(@Valid @RequestBody FlyerRequestDTO flyerRequest, Authentication authentication) {
-		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication != null
+				&& authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return flyerMapper.deleteflyer(flyerRequest);
 		} else {
 			return false;
@@ -53,7 +54,8 @@ public class FlyerController {
 	@PostMapping(value = "/createFlyer", consumes = { "multipart/form-data" })
 	public ResponseEntity<FlyerResponseDTO> addFlyer(@Valid @ModelAttribute FlyerRequestDTO flyerRequest,
 			Authentication authentication) throws IOException {
-		if (authentication !=null && authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
+		if (authentication != null
+				&& authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
 			return ResponseEntity.ok(flyerMapper.createflyer(flyerRequest));
 		} else {
 			return ResponseEntity.ok(new FlyerResponseDTO());
